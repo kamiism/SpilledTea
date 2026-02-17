@@ -15,9 +15,7 @@ export default function About() {
                             React development is carried out by passionate developers
                         </h2>
                         <p className="mt-6 text-gray-600">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eum omnis voluptatem
-                            accusantium nemo perspiciatis delectus atque autem! Voluptatum tenetur beatae unde
-                            aperiam, repellat expedita consequatur! Officiis id consequatur atque doloremque!
+                           Hi,I am Nilanjan(aka Kamii),This website is my side-project for my passion for Blogging or we can say writing random stuff. As I will learn stuff,I will implement my knowledge here and I hope I can have your support in this journey. I will be posting blogs on various topics like Life,Death,Nihilism and Absurdism. So stay tuned and keep supporting me. Thank you for visiting my website.
                         </p>
                         <p className="mt-4 text-gray-600">
                             Nobis minus voluptatibus pariatur dignissimos libero quaerat iure expedita at?

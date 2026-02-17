@@ -37,7 +37,7 @@ export default function Contact() {
                                     />
                                 </svg>
                                 <div className="ml-4 text-md tracking-wide font-semibold w-40">
-                                    Irongmara, MLA Lane, Assam, 780011
+                                    Irongmara, MLA Lane, Assam, 788011
                                 </div>
                             </div>
 
