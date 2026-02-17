@@ -1,6 +1,6 @@
-# 🌪️ Chaos & Cosmos: Spill Tea • Blog Wild • Dream Deep
+# 🌪️ SPILLEDTEA: Spill Tea • Blog Wild • Dream Deep
 
-![Hero Banner](https://via.placeholder.com/1200x400/FF6B6B/FFFFFF?text=Tea-Spilling+Psyche+Poetry+%26+Random+Rants)
+
 > *Where random rants meet raw revelation. Blogging. Tea-spilling. Soul-baring poetry.*
 
 ## Welcome to the Whirlwind! ☕✨
