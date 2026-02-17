@@ -18,8 +18,7 @@ export default function About() {
                            Hi,I am Nilanjan(aka Kamii),This website is my side-project for my passion for Blogging or we can say writing random stuff. As I will learn stuff,I will implement my knowledge here and I hope I can have your support in this journey. I will be posting blogs on various topics like Life,Death,Nihilism and Absurdism. So stay tuned and keep supporting me. Thank you for visiting my website.
                         </p>
                         <p className="mt-4 text-gray-600">
-                            Nobis minus voluptatibus pariatur dignissimos libero quaerat iure expedita at?
-                            Asperiores nemo possimus nesciunt dicta veniam aspernatur quam mollitia.
+                            Erm what the sigma gng!!!
                         </p>
                     </div>
                 </div>
