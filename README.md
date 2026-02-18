@@ -12,6 +12,13 @@ This is my digital den of delightful disorder—a space for:
 
 ## A Poetic Peek Into My Worldview 🌑💎
 
+In the world of rush where everyone scars the everyone,
+Voids stare at our eyes and we stand in front of the mirror,
+Hearts pulse like chain of lighting, and everyone is busy to squash others,
+Fashion to be shown,and thoughts to be destroyed.
+Every creativity is like rebelion and everyone tries to be the government,
+Reality weeps, and We still write to make our imagination a known.
+
 ## 🚀 Quick Start
 ```bash
 # Clone the vibe
