@@ -5,6 +5,7 @@ import About from './components/About/About'
 import Contact from './components/Contact/Contact'
 import Github from './components/Github/Github'
 import Home from './components/Home/Home'
+import Login from './components/Login'
 import User from './components/User/User'
 import './index.css'
 import Root from './root'
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
              {
         path: "github",
         element: <Github />
+      },
+      {
+        path: "login",
+        element: <Login />
       }
     ]
   }

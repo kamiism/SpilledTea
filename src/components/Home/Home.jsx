@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 export default function Home() {
     return (
         <div className="mx-auto w-full max-w-7xl">
-            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16">
-                <div className="relative z-10 max-w-7xl px-4  pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
-                    <div className="max-w-xl sm:mt-1 mt-80 space-y-8 text-center sm:text-right sm:ml-auto">
-                        <h2 className="text-4xl font-bold sm:text-5xl">
+            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 py-8 sm:py-16 min-h-[320px] sm:min-h-[400px]">
+                <div className="relative z-10 max-w-7xl px-4 pb-10 pt-6 sm:py-24 mx-auto sm:px-6 lg:px-8">
+                    <div className="max-w-xl mt-40 xs:mt-52 sm:mt-1 space-y-8 text-center sm:text-right sm:ml-auto">
+                        <h2 className="text-3xl font-bold sm:text-5xl">
                             HEYYA!!
-                            <span className="hidden sm:block text-4xl">Welcome to SpilledTea</span>
+                            <span className="block text-2xl sm:text-4xl mt-1">Welcome to SpilledTea</span>
                         </h2>
 
                         <Link
@@ -30,13 +30,21 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-12 h-full ">
-                    <img className="w-180" src="https://www.animationmagazine.net/wordpress/wp-content/uploads/Frieren-Beyond-Journeys-End-S2_EP02_130.jpg" alt="image1" />
+                <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-4 h-full">
+                    <img
+                        className="w-full max-w-[260px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl object-cover"
+                        src="https://www.animationmagazine.net/wordpress/wp-content/uploads/Frieren-Beyond-Journeys-End-S2_EP02_130.jpg"
+                        alt="image1"
+                    />
                 </div>
             </aside>
 
-            <div className="grid  place-items-center sm:mt-20">
-                <img className="sm:w-180 w-90" src="https://images.squarespace-cdn.com/content/v1/642fe9d50ff3d476932fc101/6213839e-2b72-470f-b243-6c856885e491/IMG_1083+%281%29.jpg?format=2500w" alt="image2" />
+            <div className="grid place-items-center mt-10 sm:mt-20 px-4">
+                <img
+                    className="w-full max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-6xl object-contain"
+                    src="https://images.squarespace-cdn.com/content/v1/642fe9d50ff3d476932fc101/6213839e-2b72-470f-b243-6c856885e491/IMG_1083+%281%29.jpg?format=2500w"
+                    alt="image2"
+                />
             </div>
 
             <h1 className="text-center text-2xl sm:text-5xl py-10 font-medium">SpilledTea</h1>
