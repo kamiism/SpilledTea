@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function Home() {
     return (
         <div className="mx-auto w-full max-w-7xl">
-            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 py-8 sm:py-16 min-h-[320px] sm:min-h-[400px]">
+            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 py-8 sm:py-16 min-h-80 sm:min-h-100">
                 <div className="relative z-10 max-w-7xl px-4 pb-10 pt-6 sm:py-24 mx-auto sm:px-6 lg:px-8">
                     <div className="max-w-xl mt-40 xs:mt-52 sm:mt-1 space-y-8 text-center sm:text-right sm:ml-auto">
                         <h2 className="text-3xl font-bold sm:text-5xl">
@@ -32,7 +32,7 @@ export default function Home() {
 
                 <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-4 h-full">
                     <img
-                        className="w-full max-w-[260px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl object-cover"
+                        className="w-full max-w-65 sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl object-cover"
                         src="https://www.animationmagazine.net/wordpress/wp-content/uploads/Frieren-Beyond-Journeys-End-S2_EP02_130.jpg"
                         alt="image1"
                     />
