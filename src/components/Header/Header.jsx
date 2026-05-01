@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Logo, LogoutBn } from '../index'
+import { Logo, ProfileDropdown } from '../index'
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
@@ -70,7 +70,7 @@ function Header() {
           )}
           {authStatus && (
             <li className='ml-4'>
-              <LogoutBn />
+              <ProfileDropdown />
             </li>
           )}
         </ul>
@@ -118,7 +118,7 @@ function Header() {
             )}
             {authStatus && (
               <li className='mt-2 pt-4 border-t border-[var(--color-glass-border)]'>
-                <div className='px-4'><LogoutBn /></div>
+                <div className='px-4'><ProfileDropdown /></div>
               </li>
             )}
           </ul>

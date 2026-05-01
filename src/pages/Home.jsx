@@ -1,17 +1,29 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from '../components';
-import { Link } from 'react-router-dom';
 
 function Home() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    
+    const authStatus = useSelector((state) => state.auth.status)
+    const userData = useSelector((state) => state.auth.userData)
 
     useEffect(() => {
+        if (!authStatus || !userData) {
+            setPosts([])
+            setLoading(false)
+            return
+        }
+
         appwriteService.getPosts()
             .then((response) => {
-                setPosts(response?.rows ?? [])
+                // Filter posts to show ONLY the logged-in user's posts
+                const userPosts = (response?.rows ?? []).filter(post => post.userId === userData.$id)
+                setPosts(userPosts)
             })
             .catch(() => {
                 setError(true)
@@ -20,7 +32,7 @@ function Home() {
             .finally(() => {
                 setLoading(false)
             })
-    }, [])
+    }, [authStatus, userData])
   
     // Loading — shimmer skeletons
     if (loading) {
@@ -50,14 +62,21 @@ function Home() {
                         <div className="empty-state-icon text-4xl">⚠️</div>
                         <p className="empty-state-text text-xl">Connection lost</p>
                         <p className="empty-state-subtext mt-2">We couldn't reach the SpilledTea servers. Please try refreshing.</p>
+                        <button 
+                            onClick={() => window.location.reload()}
+                            className="mt-6 px-6 py-2 rounded-lg transition-material"
+                            style={{ background: 'var(--color-glass)', color: 'var(--color-ivory)', border: '1px solid var(--color-umber)' }}
+                        >
+                            Retry
+                        </button>
                     </div>
                 </Container>
             </div>
         )
     }
 
-    // Hero Section (Empty / Logged out)
-    if (posts.length === 0) {
+    // Hero Section (Logged out)
+    if (!authStatus) {
         return (
             <div className="w-full py-24 md:py-32 flex-1 flex flex-col justify-center">
                 <Container>
@@ -135,6 +154,61 @@ function Home() {
         )
     }
 
+    // Empty state for LOGGED IN user (No posts)
+    if (posts.length === 0) {
+        return (
+            <div className="w-full py-24 md:py-32 flex-1 flex flex-col justify-center">
+                <Container>
+                    <div className="flex flex-col items-center justify-center text-center px-4 animate-fade-in max-w-3xl mx-auto">
+                        <div 
+                            className="relative mb-8"
+                            style={{
+                                width: '120px',
+                                height: '120px',
+                                borderRadius: '50%',
+                                background: 'radial-gradient(circle, rgba(169, 146, 125, 0.15) 0%, transparent 70%)',
+                            }}
+                        >
+                            <div 
+                                className="absolute inset-0 flex items-center justify-center text-5xl"
+                                style={{ filter: 'drop-shadow(0 0 16px rgba(169, 146, 125, 0.2))' }}
+                            >
+                                ✍️
+                            </div>
+                        </div>
+                        <h2 className="mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-ivory)' }}>
+                            Start spilling your first tea
+                        </h2>
+                        <p className="text-base md:text-lg max-w-md mb-8" style={{ color: 'var(--color-ivory-muted)' }}>
+                            Share your insights, stories, or thoughts with the world. Your canvas is waiting.
+                        </p>
+                        <Link 
+                            to="/add-post"
+                            className="px-8 py-3 text-sm font-semibold uppercase tracking-widest rounded-lg tea-ripple transition-material elevation-2 inline-block"
+                            style={{
+                                fontFamily: 'var(--font-body)',
+                                background: 'var(--color-burgundy)',
+                                color: 'var(--color-ivory)',
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.boxShadow = 'var(--shadow-glow-burgundy)'
+                                e.target.style.transform = 'translateY(-2px)'
+                                e.target.style.background = 'var(--color-burgundy-light)'
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.boxShadow = 'var(--shadow-elevation-2)'
+                                e.target.style.transform = 'translateY(0)'
+                                e.target.style.background = 'var(--color-burgundy)'
+                            }}
+                        >
+                            Create Post
+                        </Link>
+                    </div>
+                </Container>
+            </div>
+        )
+    }
+
     const isFewPosts = posts.length <= 2;
 
     return (
@@ -142,7 +216,7 @@ function Home() {
             <Container>
                 <div className="mb-10 flex items-center justify-between animate-fade-in">
                     <div>
-                        <h2 className="mb-2">Latest Spills</h2>
+                        <h2 className="mb-2">Your Spills</h2>
                         <div className="w-16 h-[3px]" style={{ background: 'var(--color-burgundy)' }}></div>
                     </div>
                 </div>
@@ -150,7 +224,13 @@ function Home() {
                 {isFewPosts ? (
                     // FEATURED LAYOUT (for 1-2 posts)
                     <div className="flex flex-col gap-8">
-                        {posts.map((post, index) => (
+                        {posts.map((post, index) => {
+                            // Formatting date here for featured layout
+                            const formattedDate = post.$createdAt ? new Date(post.$createdAt).toLocaleDateString('en-US', {
+                                month: 'short', day: 'numeric', year: 'numeric'
+                            }) : '';
+
+                            return (
                             <Link 
                                 key={post.$id} 
                                 to={`/post/${post.$id}`}
@@ -182,22 +262,32 @@ function Home() {
                                             }}
                                         ></div>
                                     </div>
-                                    <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                                        <h3 className="text-2xl md:text-3xl mb-6 line-clamp-3 transition-material text-[var(--color-ivory)]">
-                                            {post.title}
-                                        </h3>
-                                        <div className="mt-auto flex items-center">
-                                            <span 
-                                                className="text-sm uppercase tracking-widest font-semibold transition-material opacity-80 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-2"
-                                                style={{ color: 'var(--color-taupe)' }}
-                                            >
-                                                Read Article →
-                                            </span>
+                                    <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-between">
+                                        <div>
+                                            <h3 className="text-2xl md:text-3xl mb-4 line-clamp-3 transition-material group-hover:text-[var(--color-ivory)]" style={{ color: 'var(--color-taupe)' }}>
+                                                {post.title}
+                                            </h3>
+                                        </div>
+                                        <div className="mt-8 flex flex-col gap-4">
+                                            <div className="flex items-center justify-between text-sm font-medium" style={{ color: 'var(--color-taupe-muted)' }}>
+                                                <span className="truncate max-w-[60%] text-[var(--color-ivory-muted)]">
+                                                    By {post.authorName || userData.name || 'You'}
+                                                </span>
+                                                <span>{formattedDate}</span>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <span 
+                                                    className="text-sm uppercase tracking-widest font-semibold transition-material opacity-80 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-2"
+                                                    style={{ color: 'var(--color-taupe)' }}
+                                                >
+                                                    Read Article →
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </Link>
-                        ))}
+                        )})}
                     </div>
                 ) : (
                     // GRID LAYOUT (for 3+ posts)

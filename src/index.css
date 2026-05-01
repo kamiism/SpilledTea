@@ -6,24 +6,24 @@
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
-  /* ── Color Palette ── */
-  --color-obsidian: #0a0908;
-  --color-obsidian-light: #141210;
-  --color-obsidian-lighter: #1e1b18;
-  --color-burgundy: #49111c;
-  --color-burgundy-light: #6b1a2a;
-  --color-burgundy-glow: rgba(73, 17, 28, 0.4);
-  --color-taupe: #a9927d;
-  --color-taupe-light: #c4b3a0;
-  --color-taupe-muted: rgba(169, 146, 125, 0.6);
-  --color-umber: #5e503f;
-  --color-umber-light: #7a6b56;
-  --color-ivory: #f2f0eb;
-  --color-ivory-muted: rgba(242, 240, 235, 0.7);
-  --color-glass: rgba(94, 80, 63, 0.12);
-  --color-glass-heavy: rgba(94, 80, 63, 0.22);
-  --color-glass-border: rgba(169, 146, 125, 0.18);
-  --color-glass-border-strong: rgba(169, 146, 125, 0.30);
+  /* ── Color Palette (Light Theme Update) ── */
+  --color-obsidian: #EFE9F4; /* Lavender Mist (Background) */
+  --color-obsidian-light: #ffffff;
+  --color-obsidian-lighter: #e2d9ec;
+  --color-burgundy: #5863F8; /* Electric Sapphire (Accent) */
+  --color-burgundy-light: #7a83fa;
+  --color-burgundy-glow: rgba(88, 99, 248, 0.4);
+  --color-taupe: #171D1C; /* Carbon Black (Headings) */
+  --color-taupe-light: #16BAC5; /* Tropical Teal (Hover links) */
+  --color-taupe-muted: rgba(23, 29, 28, 0.6);
+  --color-umber: #5FBFF9; /* Maya Blue (Borders/Muted) */
+  --color-umber-light: #8dd1fa;
+  --color-ivory: #171D1C; /* Carbon Black (Body Text) */
+  --color-ivory-muted: rgba(23, 29, 28, 0.7);
+  --color-glass: rgba(255, 255, 255, 0.4); /* Light glass */
+  --color-glass-heavy: rgba(255, 255, 255, 0.7);
+  --color-glass-border: rgba(255, 255, 255, 0.5);
+  --color-glass-border-strong: rgba(255, 255, 255, 0.9);
   --color-error: #c0392b;
   --color-error-glass: rgba(192, 57, 43, 0.15);
   --color-success: #27ae60;

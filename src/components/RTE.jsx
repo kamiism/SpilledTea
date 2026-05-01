@@ -20,8 +20,8 @@ export default function RTE({name, control, label, defaultValue = ""}) {
             initialValue: defaultValue,
             height: 500,
             menubar: true,
-            skin: 'oxide-dark',
-            content_css: 'dark',
+            skin: 'oxide',
+            content_css: 'default',
             plugins: [
                 "image",
                 "advlist",
@@ -50,15 +50,15 @@ export default function RTE({name, control, label, defaultValue = ""}) {
               body { 
                 font-family: Inter, Helvetica, Arial, sans-serif; 
                 font-size: 15px; 
-                color: #f2f0eb; 
-                background-color: #141210;
+                color: #171D1C; 
+                background-color: #ffffff;
                 line-height: 1.75;
                 max-width: 72ch;
                 margin: 0 auto;
                 padding: 1rem;
               }
-              a { color: #a9927d; }
-              blockquote { border-left: 3px solid #49111c; padding-left: 1em; color: rgba(242,240,235,0.7); }
+              a { color: #5863F8; }
+              blockquote { border-left: 3px solid #16BAC5; padding-left: 1em; color: rgba(23,29,28,0.7); }
             `
         }}
         onEditorChange={onChange}

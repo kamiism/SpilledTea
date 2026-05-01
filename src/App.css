@@ -31,8 +31,8 @@
   z-index: -1;
   pointer-events: none;
   background: 
-    radial-gradient(circle at 15% 50%, rgba(73, 17, 28, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(94, 80, 63, 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 15% 50%, rgba(88, 99, 248, 0.1) 0%, transparent 40%), /* Electric Sapphire tint */
+    radial-gradient(circle at 85% 30%, rgba(22, 186, 197, 0.1) 0%, transparent 40%); /* Tropical Teal tint */
 }
 
 .app-shell > main {

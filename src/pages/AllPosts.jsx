@@ -9,7 +9,10 @@ function AllPosts() {
     useEffect(() => {
         appwriteService.getPosts([]).then((response) => {
             if (response) {
-                setPosts(response.rows ?? [])
+                const allPosts = response.rows ?? [];
+                // Sort by createdAt descending (Newest first)
+                allPosts.sort((a, b) => new Date(b.$createdAt) - new Date(a.$createdAt));
+                setPosts(allPosts);
             }
         }).catch(() => {
             setPosts([])
@@ -28,7 +31,7 @@ function AllPosts() {
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="glass-surface p-4 rounded-xl">
+              <div key={i} className="glass-surface p-4 rounded-xl" style={{ animationDelay: `${i * 100}ms` }}>
                 <div className="skeleton w-full h-48 mb-4 rounded-lg"></div>
                 <div className="skeleton w-3/4 h-5 mb-2 rounded"></div>
                 <div className="skeleton w-1/2 h-4 rounded"></div>
@@ -54,17 +57,17 @@ function AllPosts() {
         </div>
 
         {posts.length === 0 ? (
-          <div className="empty-state empty-state-border animate-fade-in">
-            <div className="empty-state-icon text-4xl">📝</div>
-            <p className="empty-state-text">No posts yet</p>
-            <p className="empty-state-subtext">Be the first to share a story.</p>
+          <div className="empty-state empty-state-border mx-auto max-w-lg animate-fade-in glass-surface">
+            <div className="empty-state-icon text-4xl mb-4">🌍</div>
+            <p className="empty-state-text text-xl" style={{ color: 'var(--color-ivory)' }}>No global posts yet</p>
+            <p className="empty-state-subtext mt-2">The SpilledTea feed is currently empty.</p>
           </div>
         ) : (
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
             {posts.map((post, index) => (
               <div 
                 key={post.$id} 
-                className="animate-slide-up"
+                className="animate-slide-up h-full"
                 style={{ animationDelay: `${index * 80}ms` }}
               >
                 <PostCard {...post} />
