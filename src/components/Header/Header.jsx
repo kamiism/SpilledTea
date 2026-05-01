@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ProfileDropdown } from '../index'
 
 function Header() {
@@ -37,8 +37,8 @@ function Header() {
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="text-[var(--color-eva-orange)] font-bold text-xl leading-none" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.1em' }}>SPILLEDTEA</span>
-              <span className="text-[var(--color-eva-green)] text-[10px] leading-none mt-1" style={{ fontFamily: 'var(--font-body)', letterSpacing: '0.05em' }}>CLASSIFIED ARCHIVE SYSTEM</span>
+              <span className="text-eva-orange font-bold text-xl leading-none" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.1em' }}>SPILLEDTEA</span>
+              <span className="text-eva-green text-[10px] leading-none mt-1" style={{ fontFamily: 'var(--font-body)', letterSpacing: '0.05em' }}>CLASSIFIED ARCHIVE SYSTEM</span>
             </div>
           </Link> 
         </div>
@@ -60,7 +60,7 @@ function Header() {
                   {item.name}
                   {isActive(item.slug) && <span className="nav-cursor">▮</span>}
                   <span 
-                    className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-eva-orange)] transition-all duration-300'
+                    className='absolute -bottom-1 left-0 h-0.5 bg-eva-orange transition-all duration-300'
                     style={{
                       width: isActive(item.slug) ? '100%' : '0%',
                     }}
@@ -82,17 +82,17 @@ function Header() {
 
         {/* Mobile Hamburger */}
         <button 
-          className='md:hidden flex flex-col gap-[5px] p-2'
+          className='md:hidden flex flex-col gap-1.25 p-2'
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
-          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
-          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
+          <span className='block w-6 h-0.5 bg-eva-orange'></span>
+          <span className='block w-6 h-0.5 bg-eva-orange'></span>
+          <span className='block w-6 h-0.5 bg-eva-orange'></span>
         </button>
       </div>
 
       {mobileOpen && (
-        <div className='md:hidden absolute top-full left-0 w-full bg-[var(--color-eva-navy)] border-b border-[var(--color-eva-orange)]'>
+        <div className='md:hidden absolute top-full left-0 w-full bg-eva-navy border-b border-eva-orange'>
           <ul className='flex flex-col p-4 gap-2'>
             {navItems.map((item) => 
               item.active ? (
@@ -113,8 +113,8 @@ function Header() {
               ) : null
             )}
             {authStatus && (
-              <li className='mt-2 pt-4 border-t border-[var(--color-eva-border)]'>
-                <div className='px-4 text-[var(--color-eva-orange)]'><ProfileDropdown /></div>
+              <li className='mt-2 pt-4 border-t border-eva-border'>
+                <div className='px-4 text-eva-orange'><ProfileDropdown /></div>
               </li>
             )}
           </ul>
