@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Logo, ProfileDropdown } from '../index'
+import { ProfileDropdown } from '../index'
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
@@ -10,59 +10,64 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const navItems = [
-    { name: 'Home', slug: "/", active: true },
-    { name: "Login", slug: "/login", active: !authStatus },
-    { name: "Signup", slug: "/signup", active: !authStatus },
-    { name: "All Posts", slug: "/all-posts", active: authStatus },
-    { name: "Add Post", slug: "/add-post", active: authStatus },
+    { name: 'HOME', slug: "/", active: true },
+    { name: "LOGIN", slug: "/login", active: !authStatus },
+    { name: "SIGNUP", slug: "/signup", active: !authStatus },
+    { name: "ALL POSTS", slug: "/all-posts", active: authStatus },
+    { name: "ADD POST", slug: "/add-post", active: authStatus },
   ]
 
   const isActive = (slug) => location.pathname === slug
 
   return (
     <header 
-      className='sticky top-0 z-50 glass-surface elevation-1'
+      className='sticky top-0 z-50'
       style={{
-        borderRadius: 0, // Header should span full width without rounded corners
-        borderLeft: 'none',
-        borderRight: 'none',
-        borderTop: 'none',
+        background: 'var(--color-eva-black)',
+        borderBottom: '1px solid var(--color-eva-orange)',
+        boxShadow: '0 1px 0 rgba(255,102,0,0.3)',
       }}
     >
-      <div className="container-strict px-4 lg:px-8 h-20 flex items-center justify-between">
-        <div className='shrink-0'>
-          <Link to='/' className='block transition-material hover:opacity-80'>
-            <Logo width='64px' />
+      <div className="container-strict px-4 lg:px-8 h-16 flex items-center justify-between">
+        <div className='shrink-0 flex items-center gap-4'>
+          <Link to='/' className='flex items-center gap-3'>
+            <div className="w-8 h-8 flex items-center justify-center" style={{ background: 'var(--color-eva-orange)' }}>
+              <svg viewBox="0 0 24 24" fill="var(--color-eva-black)" className="w-6 h-6">
+                <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z"/>
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[var(--color-eva-orange)] font-bold text-xl leading-none" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.1em' }}>SPILLEDTEA</span>
+              <span className="text-[var(--color-eva-green)] text-[10px] leading-none mt-1" style={{ fontFamily: 'var(--font-body)', letterSpacing: '0.05em' }}>CLASSIFIED ARCHIVE SYSTEM</span>
+            </div>
           </Link> 
         </div>
 
         {/* Desktop Nav */}
-        <ul className='hidden md:flex items-center gap-2 ml-auto'>
+        <ul className='hidden md:flex items-center gap-6 ml-auto'>
           {navItems.map((item) => 
             item.active ? (
               <li key={item.name}>
                 <button
                   onClick={() => navigate(item.slug)}
-                  className='px-4 py-2 text-sm font-semibold uppercase tracking-wider transition-material relative group'
+                  className='relative text-sm tracking-widest'
                   style={{
-                    fontFamily: 'var(--font-body)',
-                    color: isActive(item.slug) ? 'var(--color-ivory)' : 'var(--color-ivory-muted)',
+                    fontFamily: 'var(--font-heading)',
+                    color: isActive(item.slug) ? 'var(--color-eva-orange)' : 'var(--color-eva-muted)',
+                    textShadow: isActive(item.slug) ? '0 0 8px rgba(255,102,0,0.4)' : 'none'
                   }}
                 >
                   {item.name}
-                  {/* Burgundy active/hover underline */}
+                  {isActive(item.slug) && <span className="nav-cursor">▮</span>}
                   <span 
-                    className='absolute bottom-0 left-0 w-full h-[3px] transition-material'
+                    className='absolute -bottom-1 left-0 h-[2px] bg-[var(--color-eva-orange)] transition-all duration-300'
                     style={{
-                      background: 'var(--color-burgundy)',
-                      transform: isActive(item.slug) ? 'scaleX(1)' : 'scaleX(0)',
-                      transformOrigin: 'left',
+                      width: isActive(item.slug) ? '100%' : '0%',
                     }}
                   />
-                  {/* Hover effect without overwriting active state */}
                   <style>{`
-                    button:hover span { transform: scaleX(1) !important; }
-                    button:hover { color: var(--color-ivory) !important; }
+                    button:hover { color: var(--color-eva-orange) !important; }
+                    button:hover span.absolute { width: 100% !important; }
                   `}</style>
                 </button>
               </li>
@@ -79,51 +84,43 @@ function Header() {
         <button 
           className='md:hidden flex flex-col gap-[5px] p-2'
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation"
         >
-          <span className='block w-6 h-[2px] transition-material' style={{
-            background: 'var(--color-ivory)',
-            transform: mobileOpen ? 'rotate(45deg) translateY(5px)' : 'none'
-          }}></span>
-          <span className='block w-6 h-[2px] transition-material' style={{
-            background: 'var(--color-ivory)',
-            opacity: mobileOpen ? 0 : 1
-          }}></span>
-          <span className='block w-6 h-[2px] transition-material' style={{
-            background: 'var(--color-ivory)',
-            transform: mobileOpen ? 'rotate(-45deg) translateY(-5px)' : 'none'
-          }}></span>
+          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
+          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
+          <span className='block w-6 h-[2px] bg-[var(--color-eva-orange)]'></span>
         </button>
       </div>
 
-      {/* Mobile Menu Panel */}
       {mobileOpen && (
-        <div className='md:hidden absolute top-full left-0 w-full glass-surface-heavy border-t-0 rounded-t-none animate-slide-up elevation-2'>
+        <div className='md:hidden absolute top-full left-0 w-full bg-[var(--color-eva-navy)] border-b border-[var(--color-eva-orange)]'>
           <ul className='flex flex-col p-4 gap-2'>
             {navItems.map((item) => 
               item.active ? (
                 <li key={item.name}>
                   <button
                     onClick={() => { navigate(item.slug); setMobileOpen(false); }}
-                    className='w-full text-left px-4 py-3 text-sm font-semibold uppercase tracking-wider rounded-lg transition-material'
+                    className='w-full text-left px-4 py-3 text-sm font-semibold uppercase tracking-wider transition-colors'
                     style={{
-                      fontFamily: 'var(--font-body)',
-                      color: isActive(item.slug) ? 'var(--color-ivory)' : 'var(--color-ivory-muted)',
-                      background: isActive(item.slug) ? 'var(--color-obsidian-lighter)' : 'transparent',
-                      borderLeft: isActive(item.slug) ? '4px solid var(--color-burgundy)' : '4px solid transparent',
+                      fontFamily: 'var(--font-heading)',
+                      color: isActive(item.slug) ? 'var(--color-eva-orange)' : 'var(--color-eva-muted)',
+                      borderLeft: isActive(item.slug) ? '2px solid var(--color-eva-orange)' : '2px solid transparent',
+                      background: isActive(item.slug) ? 'rgba(255,102,0,0.05)' : 'transparent'
                     }}
-                  >{item.name}</button>
+                  >
+                    {isActive(item.slug) ? `> ${item.name}` : item.name}
+                  </button>
                 </li>
               ) : null
             )}
             {authStatus && (
-              <li className='mt-2 pt-4 border-t border-[var(--color-glass-border)]'>
-                <div className='px-4'><ProfileDropdown /></div>
+              <li className='mt-2 pt-4 border-t border-[var(--color-eva-border)]'>
+                <div className='px-4 text-[var(--color-eva-orange)]'><ProfileDropdown /></div>
               </li>
             )}
           </ul>
         </div>
       )}
+
     </header>
   )
 }

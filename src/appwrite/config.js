@@ -57,6 +57,31 @@ export class Service{
         }
     }
 
+    async updateAuthorNameInPosts(userId, newAuthorName) {
+        try {
+            const result = await this.tablesDB.listRows(
+                conf.appwriteDatabaseId,
+                conf.appwriteTableId,
+                [Query.equal("userId", userId)]
+            );
+            
+            const promises = (result?.rows || []).map(post => 
+                this.tablesDB.updateRow(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteTableId,
+                    post.$id,
+                    { authorName: newAuthorName }
+                )
+            );
+            
+            await Promise.all(promises);
+            return true;
+        } catch (error) {
+            console.error("Failed to update post author names:", error);
+            throw error;
+        }
+    }
+
     async deletePost(slug){
         try{
             await this.tablesDB.deleteRow(

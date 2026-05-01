@@ -53,6 +53,14 @@ export class AuthService {
         }
     }
 
+    async updateName(name) {
+        try {
+            return await this.account.updateName(name);
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async logout() {
         try{
             await this.account.deleteSessions();

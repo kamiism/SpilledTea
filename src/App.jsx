@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import './App.css';
 import authService from './appwrite/auth';
 import { Footer, Header, Logo } from './components';
@@ -9,12 +9,12 @@ import { login, logout } from "./store/authSlice";
 function App() {
   const [loading,setLoading] = useState(true)
   const dispatch = useDispatch()
+  const location = useLocation()
 
   useEffect(() => {
     authService.getCurrentUser()
     .then((userData) => {
       if (userData) {
-        // Convert Appwrite object to plain serializable object
         dispatch(login(JSON.parse(JSON.stringify(userData))))
       } else {
         dispatch(logout())
@@ -24,18 +24,16 @@ function App() {
   },[])
 
   return loading ? (
-    <div className='loading-screen'>
-      <div className='loading-logo'>
-        <Logo width='80px' />
-      </div>
-      <div className='loading-bar'>
-        <div className='loading-bar-inner'></div>
+    <div className='min-h-screen bg-[var(--color-eva-black)] flex flex-col items-center justify-center gap-4'>
+      <div className='text-[var(--color-eva-orange)] font-bold tracking-widest uppercase' style={{ fontFamily: 'var(--font-heading)'}}>SYSTEM INITIALIZING</div>
+      <div className='w-48 h-1 bg-[var(--color-eva-navy)] overflow-hidden'>
+        <div className='h-full bg-[var(--color-eva-green)] animate-[shimmer_1.5s_infinite] w-full origin-left'></div>
       </div>
     </div>
   ) : (
-    <div className='app-shell'>
+    <div className='app-shell relative'>
       <Header />
-      <main>
+      <main className="transition-all duration-300">
         <Outlet />
       </main>
       <Footer />

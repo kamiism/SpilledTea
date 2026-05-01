@@ -3,25 +3,21 @@ import { Controller } from 'react-hook-form';
 
 const TINYMCE_API_KEY = import.meta.env.VITE_TINYMCE_API_KEY || "";
 
-export default function RTE({name, control, label, defaultValue = ""}) {
+export default function RTE({name, control, defaultValue = ""}) {
   return (
-    <div className='w-full'>
-        {label && <label className='inline-block mb-2 pl-0.5 brutalist-label'>
-        {label}</label>}
-
+    <div className='w-full bg-[var(--color-eva-panel)]'>
     <Controller 
     name={name || "content"}
     control={control}
-    render={({field: {onChange}}) => (
+    render={({field: {onChange, value}}) => (
          <Editor
         apiKey={TINYMCE_API_KEY}
-        initialValue={defaultValue}
+        value={value}
         init={{
-            initialValue: defaultValue,
             height: 500,
-            menubar: true,
-            skin: 'oxide',
-            content_css: 'default',
+            menubar: false,
+            skin: 'oxide-dark',
+            content_css: 'dark',
             plugins: [
                 "image",
                 "advlist",
@@ -45,27 +41,40 @@ export default function RTE({name, control, label, defaultValue = ""}) {
                 "anchor",
             ],
             toolbar:
-            "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+            "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
             content_style: `
               body { 
-                font-family: Inter, Helvetica, Arial, sans-serif; 
+                font-family: 'IBM Plex Mono', monospace; 
                 font-size: 15px; 
-                color: #171D1C; 
-                background-color: #ffffff;
-                line-height: 1.75;
+                color: #e8e8e8; 
+                background-color: #111827;
+                line-height: 1.8;
                 max-width: 72ch;
                 margin: 0 auto;
                 padding: 1rem;
               }
-              a { color: #5863F8; }
-              blockquote { border-left: 3px solid #16BAC5; padding-left: 1em; color: rgba(23,29,28,0.7); }
+              a { color: #ff6600; text-decoration: underline; }
+              blockquote { 
+                border-left: 4px solid #ff6600; 
+                padding-left: 1em; 
+                color: #ff6600; 
+                font-style: italic; 
+                background: rgba(255, 102, 0, 0.05); 
+                padding-top: 0.5em; 
+                padding-bottom: 0.5em; 
+              }
+              h1, h2, h3, h4, h5, h6 {
+                font-family: 'Share Tech Mono', monospace;
+                color: #ff6600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+              }
             `
         }}
         onEditorChange={onChange}
         />
     )}
     />
-
     </div>
   )
 }
