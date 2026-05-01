@@ -98,60 +98,93 @@ export default function PostForm({ post }) {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
-                <Input
-                    label="Title :"
-                    placeholder="Title"
-                    className="mb-4"
-                    {...register("title", { required: true })}
-                />
-                {errors.title && <p className="text-red-600 text-sm mb-2">Title is required.</p>}
-                <Input
-                    label="Slug :"
-                    placeholder="Slug"
-                    className="mb-4"
-                    {...register("slug", { required: true })}
-                    onInput={(e) => {
-                        setValue("slug", slugTransform(e?.currentTarget?.value), { shouldValidate: true });
-                    }}
-                />
-                {errors.slug && <p className="text-red-600 text-sm mb-2">Slug is required.</p>}
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap gap-6 lg:gap-0">
+            {/* Main Content Panel */}
+            <div className="w-full lg:w-2/3 lg:pr-4">
+                <div className="glass-surface-heavy p-6 space-y-5">
+                    <Input
+                        label="Title"
+                        placeholder="Your post title"
+                        className="mb-2"
+                        {...register("title", { required: true })}
+                    />
+                    {errors.title && <p className="text-sm" style={{ color: 'var(--color-error)' }}>Title is required.</p>}
+                    <Input
+                        label="Slug"
+                        placeholder="auto-generated-slug"
+                        className="mb-2"
+                        {...register("slug", { required: true })}
+                        onInput={(e) => {
+                            setValue("slug", slugTransform(e?.currentTarget?.value), { shouldValidate: true });
+                        }}
+                    />
+                    {errors.slug && <p className="text-sm" style={{ color: 'var(--color-error)' }}>Slug is required.</p>}
+                    <RTE label="Content" name="content" control={control} defaultValue={getValues("content")} />
+                </div>
             </div>
-            <div className="w-1/3 px-2">
-                <Input
-                    label="Featured Image :"
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg, image/gif"
-                    {...register("image", { required: !post })}
-                />
-                {errors.image && <p className="text-red-600 text-sm mb-2">Featured image is required.</p>}
-                {post && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
+
+            {/* Sidebar Panel */}
+            <div className="w-full lg:w-1/3 lg:pl-4">
+                <div className="glass-surface-heavy p-6 space-y-5">
+                    {/* File Upload */}
+                    <div>
+                        <label className="brutalist-label inline-block mb-2">Featured Image</label>
+                        <div 
+                            className="rounded-lg p-4 text-center transition-material"
+                            style={{
+                                border: '2px dashed var(--color-umber)',
+                                background: 'var(--color-glass)',
+                            }}
+                        >
+                            <input
+                                type="file"
+                                className="w-full text-sm cursor-pointer"
+                                accept="image/png, image/jpg, image/jpeg, image/gif"
+                                style={{ color: 'var(--color-ivory-muted)' }}
+                                {...register("image", { required: !post })}
+                            />
+                            {!post && (
+                                <p className="mt-2 text-xs" style={{ color: 'var(--color-taupe-muted)' }}>
+                                    PNG, JPG, GIF up to 10MB
+                                </p>
+                            )}
+                        </div>
                     </div>
-                )}
-                <Select
-                    options={["active", "inactive"]}
-                    label="Status"
-                    className="mb-4"
-                    {...register("status", { required: true })}
-                />
-                {errors.root && <p className="text-red-600 text-sm mb-2">{errors.root.message}</p>}
-                <Button
-                    type="submit"
-                    bgColor={post ? "bg-green-500" : undefined}
-                    className="w-full"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? "Submitting..." : post ? "Update" : "Submit"}
-                </Button>
+                    {errors.image && <p className="text-sm" style={{ color: 'var(--color-error)' }}>Featured image is required.</p>}
+
+                    {/* Image Preview */}
+                    {post && (
+                        <div className="w-full rounded-lg overflow-hidden">
+                            <img
+                                src={appwriteService.getFilePreview(post.featuredImage)}
+                                alt={post.title}
+                                className="rounded-lg w-full"
+                            />
+                        </div>
+                    )}
+
+                    <Select
+                        options={["active", "inactive"]}
+                        label="Status"
+                        className="mb-2"
+                        {...register("status", { required: true })}
+                    />
+
+                    {errors.root && (
+                        <div className='error-state'>
+                            <span style={{ marginRight: '0.5rem' }}>⚠</span>{errors.root.message}
+                        </div>
+                    )}
+
+                    <Button
+                        type="submit"
+                        bgColor={post ? "bg-green-500" : undefined}
+                        className="w-full"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? "Submitting..." : post ? "Update" : "Publish"}
+                    </Button>
+                </div>
             </div>
         </form>
     );

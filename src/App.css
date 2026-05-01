@@ -1,0 +1,225 @@
+/* ═══════════════════════════════════════════════════════════
+   SPILLEDTEA — COMPONENT UTILITIES v2
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── App Layout & Backgrounds ── */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-obsidian);
+  position: relative;
+  z-index: 0;
+}
+
+/* Subtle noise texture */
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Base spill gradient behind content */
+.app-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(73, 17, 28, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(94, 80, 63, 0.05) 0%, transparent 40%);
+}
+
+.app-shell > main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Container (Strict 1200px max-width) ── */
+.container-strict {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Glass Containers (Cards, Modals, Navbar, Panels) ── */
+/* Rule: Glass ONLY for surfaces. No thick borders. */
+.glass-surface {
+  background: var(--color-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 12px;
+}
+
+.glass-surface-heavy {
+  background: var(--color-glass-heavy);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border-strong);
+  border-radius: 16px;
+}
+
+/* Fallback for unsupported browsers */
+@supports not (backdrop-filter: blur(12px)) {
+  .glass-surface {
+    background: var(--color-obsidian-light);
+  }
+  .glass-surface-heavy {
+    background: var(--color-obsidian-lighter);
+  }
+}
+
+/* ── Brutalist Accents (Borders, Headings, Buttons) ── */
+.brutalist-accent-left {
+  border-left: 3px solid var(--color-burgundy);
+}
+
+.brutalist-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-taupe);
+}
+
+/* ── Material Elevation Levels ── */
+.elevation-1 { box-shadow: var(--shadow-elevation-1); }
+.elevation-2 { box-shadow: var(--shadow-elevation-2); }
+.elevation-3 { box-shadow: var(--shadow-elevation-3); }
+
+/* ── Tea Ripple Effect (Buttons) ── */
+.tea-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.tea-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(169, 146, 125, 0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  opacity: 0;
+  transition: none;
+}
+
+.tea-ripple:active::after {
+  animation: spill 400ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ── Shimmer Skeleton ── */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-obsidian-lighter) 25%,
+    var(--color-glass-heavy) 50%,
+    var(--color-obsidian-lighter) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ── Empty State ── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8) var(--spacing-3);
+  text-align: center;
+}
+
+.empty-state-border {
+  border: 1px dashed var(--color-umber);
+  border-radius: 16px;
+}
+
+.empty-state-icon {
+  color: var(--color-taupe-muted);
+  margin-bottom: var(--spacing-2);
+}
+
+.empty-state-text {
+  color: var(--color-ivory);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.empty-state-subtext {
+  color: var(--color-ivory-muted);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-1);
+}
+
+/* ── Error State ── */
+.error-state {
+  background: var(--color-error-glass);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: 8px;
+  padding: var(--spacing-2) var(--spacing-3);
+  color: #e74c3c;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+/* ── Disabled State ── */
+.is-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ── Transition Utilities ── */
+.transition-material {
+  transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Loading Screen ── */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--color-obsidian);
+  gap: var(--spacing-3);
+}
+
+.loading-logo {
+  animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-bar {
+  width: 120px;
+  height: 2px;
+  background: var(--color-obsidian-lighter);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loading-bar-inner {
+  width: 40%;
+  height: 100%;
+  background: var(--color-burgundy);
+  border-radius: 1px;
+  animation: loading-slide 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}

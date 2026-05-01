@@ -5,8 +5,8 @@ const TINYMCE_API_KEY = import.meta.env.VITE_TINYMCE_API_KEY || "";
 
 export default function RTE({name, control, label, defaultValue = ""}) {
   return (
-    <div className='w-full '>
-        {label && <label className='inline-block mb-1 pl-1'>
+    <div className='w-full'>
+        {label && <label className='inline-block mb-2 pl-0.5 brutalist-label'>
         {label}</label>}
 
     <Controller 
@@ -20,6 +20,8 @@ export default function RTE({name, control, label, defaultValue = ""}) {
             initialValue: defaultValue,
             height: 500,
             menubar: true,
+            skin: 'oxide-dark',
+            content_css: 'dark',
             plugins: [
                 "image",
                 "advlist",
@@ -44,7 +46,20 @@ export default function RTE({name, control, label, defaultValue = ""}) {
             ],
             toolbar:
             "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
-            content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+            content_style: `
+              body { 
+                font-family: Inter, Helvetica, Arial, sans-serif; 
+                font-size: 15px; 
+                color: #f2f0eb; 
+                background-color: #141210;
+                line-height: 1.75;
+                max-width: 72ch;
+                margin: 0 auto;
+                padding: 1rem;
+              }
+              a { color: #a9927d; }
+              blockquote { border-left: 3px solid #49111c; padding-left: 1em; color: rgba(242,240,235,0.7); }
+            `
         }}
         onEditorChange={onChange}
         />
@@ -54,4 +69,3 @@ export default function RTE({name, control, label, defaultValue = ""}) {
     </div>
   )
 }
-

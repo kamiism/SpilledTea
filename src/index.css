@@ -1,1 +1,283 @@
 @import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   SPILLEDTEA — DESIGN SYSTEM v2
+   Glassmorphism × Minimal Brutalism × Material Design
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Color Palette ── */
+  --color-obsidian: #0a0908;
+  --color-obsidian-light: #141210;
+  --color-obsidian-lighter: #1e1b18;
+  --color-burgundy: #49111c;
+  --color-burgundy-light: #6b1a2a;
+  --color-burgundy-glow: rgba(73, 17, 28, 0.4);
+  --color-taupe: #a9927d;
+  --color-taupe-light: #c4b3a0;
+  --color-taupe-muted: rgba(169, 146, 125, 0.6);
+  --color-umber: #5e503f;
+  --color-umber-light: #7a6b56;
+  --color-ivory: #f2f0eb;
+  --color-ivory-muted: rgba(242, 240, 235, 0.7);
+  --color-glass: rgba(94, 80, 63, 0.12);
+  --color-glass-heavy: rgba(94, 80, 63, 0.22);
+  --color-glass-border: rgba(169, 146, 125, 0.18);
+  --color-glass-border-strong: rgba(169, 146, 125, 0.30);
+  --color-error: #c0392b;
+  --color-error-glass: rgba(192, 57, 43, 0.15);
+  --color-success: #27ae60;
+
+  /* ── Typography ── */
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* ── 8px Spacing Scale ── */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+  --spacing-6: 48px;
+  --spacing-8: 64px;
+  --spacing-10: 80px;
+  --spacing-12: 96px;
+
+  /* ── Material Elevation Shadows ── */
+  --shadow-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-elevation-3: 0 12px 28px rgba(0, 0, 0, 0.4), 0 6px 10px rgba(0, 0, 0, 0.22);
+  --shadow-glow-burgundy: 0 0 24px rgba(73, 17, 28, 0.4);
+  --shadow-glow-taupe: 0 0 16px rgba(169, 146, 125, 0.15);
+  --shadow-border-glow: 0 0 8px rgba(169, 146, 125, 0.12);
+
+  /* ── Animations ── */
+  --animate-fade-in: fade-in 280ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-slide-up: slide-up 280ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.5s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Keyframe Definitions ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes loading-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+@keyframes spill {
+  0% { transform: scale(0); opacity: 0.6; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL RESETS & DEFAULTS
+   ═══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-obsidian);
+  color: var(--color-ivory);
+  line-height: 1.6;
+  margin: 0;
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPOGRAPHY SCALE (strict xs → 4xl)
+   ═══════════════════════════════════════════════════════════ */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-taupe);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* 4xl - hero headlines */
+.text-4xl, h1.hero-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+}
+
+/* 3xl - page titles */
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+/* 2xl - section headings */
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* xl - card titles, sub-sections */
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* lg - labels, small headings */
+h4 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+/* sm - small text */
+.text-sm { font-size: 0.875rem; }
+
+/* xs - captions, metadata */
+.text-xs { font-size: 0.75rem; }
+
+p {
+  color: var(--color-ivory);
+  line-height: 1.75;
+  max-width: 72ch;
+  margin: 0;
+}
+
+a {
+  color: var(--color-taupe);
+  text-decoration: none;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: var(--color-taupe-light);
+}
+
+::selection {
+  background-color: var(--color-burgundy);
+  color: var(--color-ivory);
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-obsidian); }
+::-webkit-scrollbar-thumb { background: var(--color-umber); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-taupe-muted); }
+
+/* ═══════════════════════════════════════════════════════════
+   BLOG PROSE STYLES (reading-optimized)
+   ═══════════════════════════════════════════════════════════ */
+
+.prose-spilled {
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.prose-spilled h1,
+.prose-spilled h2,
+.prose-spilled h3 {
+  font-family: var(--font-heading);
+  color: var(--color-taupe);
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+}
+
+.prose-spilled p {
+  margin-bottom: 1.5em;
+  color: var(--color-ivory);
+}
+
+.prose-spilled p + p {
+  margin-top: 0;
+}
+
+.prose-spilled img {
+  border-radius: 12px;
+  margin: 2em 0;
+  max-width: 100%;
+}
+
+.prose-spilled blockquote {
+  border-left: 3px solid var(--color-burgundy);
+  padding-left: 1.5em;
+  color: var(--color-ivory-muted);
+  font-style: italic;
+  margin: 2em 0;
+}
+
+.prose-spilled code {
+  background: var(--color-glass-heavy);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: var(--color-taupe-light);
+}
+
+.prose-spilled pre {
+  background: var(--color-obsidian-lighter);
+  border: 1px solid var(--color-glass-border);
+  border-radius: 8px;
+  padding: 1.5em;
+  overflow-x: auto;
+}
+
+.prose-spilled a {
+  color: var(--color-taupe);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-spilled a:hover {
+  color: var(--color-taupe-light);
+}
+
+.prose-spilled ul,
+.prose-spilled ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.prose-spilled li {
+  margin-bottom: 0.5em;
+  color: var(--color-ivory);
+}
+
+.prose-spilled strong {
+  color: var(--color-taupe);
+  font-weight: 600;
+}
+
+.prose-spilled hr {
+  border: none;
+  border-top: 1px solid var(--color-glass-border);
+  margin: 3em 0;
+}

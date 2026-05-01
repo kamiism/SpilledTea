@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
+import Logo from './Logo'
 
 export default function Protected({children, authentication = true}) {
 
@@ -25,6 +25,16 @@ export default function Protected({children, authentication = true}) {
     }, [authStatus, navigate, authentication])
 
 
-  return loader ? <h1>Loading...</h1> : <>{children}</>
+  return loader ? (
+    <div className='flex flex-col items-center justify-center py-20 gap-4'>
+      <div className='loading-logo'>
+        <Logo width='60px' />
+      </div>
+      <div className='flex gap-2'>
+        <div className='skeleton' style={{ width: '8px', height: '8px', borderRadius: '50%', animationDelay: '0ms' }}></div>
+        <div className='skeleton' style={{ width: '8px', height: '8px', borderRadius: '50%', animationDelay: '200ms' }}></div>
+        <div className='skeleton' style={{ width: '8px', height: '8px', borderRadius: '50%', animationDelay: '400ms' }}></div>
+      </div>
+    </div>
+  ) : <>{children}</>
 }
-
