@@ -44,37 +44,26 @@ function Header() {
         </div>
 
         {/* Desktop Nav */}
-        <ul className='hidden md:flex items-center gap-6 ml-auto'>
+        <ul className='flex ml-auto items-center gap-2 md:gap-4'>
           {navItems.map((item) => 
             item.active ? (
               <li key={item.name}>
                 <button
                   onClick={() => navigate(item.slug)}
-                  className='relative text-sm tracking-widest'
+                  className='relative text-sm tracking-widest font-heading uppercase px-3 py-1 transition-all duration-200'
                   style={{
-                    fontFamily: 'var(--font-heading)',
-                    color: isActive(item.slug) ? 'var(--color-eva-orange)' : 'var(--color-eva-muted)',
-                    textShadow: isActive(item.slug) ? '0 0 8px rgba(255,102,0,0.4)' : 'none'
+                    color: isActive(item.slug) ? 'var(--color-eva-cyan)' : 'var(--color-eva-muted)',
+                    textShadow: isActive(item.slug) ? '0 0 8px var(--color-eva-cyan)' : 'none'
                   }}
                 >
+                  <span className='opacity-50 mr-1'>&gt;</span>
                   {item.name}
-                  {isActive(item.slug) && <span className="nav-cursor">▮</span>}
-                  <span 
-                    className='absolute -bottom-1 left-0 h-0.5 bg-eva-orange transition-all duration-300'
-                    style={{
-                      width: isActive(item.slug) ? '100%' : '0%',
-                    }}
-                  />
-                  <style>{`
-                    button:hover { color: var(--color-eva-orange) !important; }
-                    button:hover span.absolute { width: 100% !important; }
-                  `}</style>
                 </button>
               </li>
             ) : null
           )}
           {authStatus && (
-            <li className='ml-4'>
+            <li>
               <ProfileDropdown />
             </li>
           )}

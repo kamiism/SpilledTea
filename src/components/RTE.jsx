@@ -45,29 +45,30 @@ export default function RTE({name, control, defaultValue = ""}) {
             content_style: `
               body { 
                 font-family: 'IBM Plex Mono', monospace; 
-                font-size: 15px; 
-                color: #e8e8e8; 
-                background-color: #111827;
+                font-size: 16px; 
+                color: #f1f5f9; 
+                background-color: #0a0e1a;
                 line-height: 1.8;
                 max-width: 72ch;
                 margin: 0 auto;
-                padding: 1rem;
+                padding: 2rem 1rem;
               }
-              a { color: #ff6600; text-decoration: underline; }
+              a { color: #00d4ff; text-decoration: underline; }
               blockquote { 
-                border-left: 4px solid #ff6600; 
-                padding-left: 1em; 
-                color: #ff6600; 
+                border-left: 4px solid #7b2fff; 
+                padding-left: 1.5em; 
+                color: #7b2fff; 
                 font-style: italic; 
-                background: rgba(255, 102, 0, 0.05); 
-                padding-top: 0.5em; 
-                padding-bottom: 0.5em; 
+                background: rgba(123, 47, 255, 0.05); 
+                padding-top: 1em; 
+                padding-bottom: 1em; 
               }
               h1, h2, h3, h4, h5, h6 {
                 font-family: 'Share Tech Mono', monospace;
-                color: #ff6600;
+                color: #00d4ff;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
+                margin-top: 2em;
               }
             `
         }}
