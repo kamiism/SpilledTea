@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
-import { Container, Comments } from "../components";
+import { Comments, Container } from "../components";
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -105,33 +105,33 @@ export default function Post() {
         <>
             {/* Reading Progress Bar */}
             <div 
-                className="fixed top-0 left-0 h-[3px] z-[9999] transition-all duration-100"
+                className="fixed top-0 left-0 h-0.75 z-9999 transition-all duration-100"
                 style={{
                     width: `${scrollProgress}%`,
                     background: 'linear-gradient(90deg, var(--color-eva-green), var(--color-eva-orange))'
                 }}
             />
 
-            <div className={`py-10 animate-fade-in transition-all duration-500 ${focusMode ? 'opacity-100 bg-[var(--color-eva-black)] min-h-screen z-50 absolute inset-0' : ''}`}>
+            <div className={`py-10 animate-fade-in transition-all duration-500 ${focusMode ? 'opacity-100 bg-eva-black min-h-screen z-50 absolute inset-0' : ''}`}>
                 {/* When focus mode is active, hide everything else. By absolute positioning this div over the rest */}
                 
                 <Container>
                     <div className={`max-w-4xl mx-auto ${focusMode ? 'mt-20' : ''}`}>
                         {/* Hero Image */}
-                        <div className="w-full mb-12 relative overflow-hidden border border-[var(--color-eva-border)]">
+                        <div className="w-full mb-12 relative overflow-hidden border border-eva-border">
                             <div className="corner-brackets absolute inset-0 z-20 pointer-events-none"></div>
                             <img
                                 src={appwriteService.getFilePreview(post.featuredImage)}
                                 alt={post.title}
-                                className="w-full max-h-[500px] object-cover"
+                                className="w-full max-h-125 object-cover"
                             />
                             {/* Category tag */}
-                            <div className="absolute top-4 left-4 z-10 bg-[rgba(10,10,15,0.8)] border border-[var(--color-eva-orange)] px-3 py-1 font-mono text-[var(--color-eva-orange)] text-xs uppercase tracking-widest shadow-[0_0_12px_rgba(255,102,0,0.3)]">
+                            <div className="absolute top-4 left-4 z-10 bg-[rgba(10,10,15,0.8)] border border-eva-orange px-3 py-1 font-mono text-eva-orange text-xs uppercase tracking-widest shadow-[0_0_12px_rgba(255,102,0,0.3)]">
                                 VIEWS: {post.views || 0} // TRANSMISSION_ARCHIVE
                             </div>
                             
                             {/* Dark gradient fade for aesthetics */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-eva-black)] via-[rgba(10,10,15,0.3)] to-transparent pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-eva-black via-[rgba(10,10,15,0.3)] to-transparent pointer-events-none"></div>
 
                             <div className="absolute right-4 bottom-4 flex gap-4 z-30">
                                 {isAuthor && !focusMode && (
@@ -141,14 +141,14 @@ export default function Post() {
                                                 EDIT_DATA
                                             </button>
                                         </Link>
-                                        <button className="btn-nerv bg-[rgba(0,0,0,0.6)] border-[var(--color-eva-red)] text-[var(--color-eva-red)] hover:bg-[var(--color-eva-red)] hover:text-white" onClick={deletePost}>
+                                        <button className="btn-nerv bg-[rgba(0,0,0,0.6)] border-eva-red text-eva-red hover:bg-eva-red hover:text-white" onClick={deletePost}>
                                             PURGE
                                         </button>
                                     </>
                                 )}
                                 <button 
                                     onClick={handleLike}
-                                    className={`btn-nerv ${isLiked ? 'bg-[var(--color-eva-red)] text-white border-[var(--color-eva-red)]' : 'bg-[rgba(0,0,0,0.6)]'}`}
+                                    className={`btn-nerv ${isLiked ? 'bg-eva-red text-white border-eva-red' : 'bg-[rgba(0,0,0,0.6)]'}`}
                                 >
                                     {isLiked ? '♥ LIKED' : '♡ LIKE'} [{localLikes.length}]
                                 </button>
@@ -156,12 +156,12 @@ export default function Post() {
                         </div>
 
                         {/* Article Header */}
-                        <div className="mb-12 border-b border-[var(--color-eva-border)] pb-8">
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-[var(--color-eva-white)] tracking-tight leading-none" style={{ fontFamily: 'var(--font-heading)' }}>
-                                <span className="text-[var(--color-eva-green)] mr-4">&gt;</span>
+                        <div className="mb-12 border-b border-eva-border pb-8">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl mb-6 text-eva-white tracking-tight leading-none" style={{ fontFamily: 'var(--font-heading)' }}>
+                                <span className="text-eva-green mr-4">&gt;</span>
                                 {post.title}
                             </h1>
-                            <div className="flex items-center text-[var(--color-eva-green)] font-mono text-sm uppercase tracking-widest">
+                            <div className="flex items-center text-eva-green font-mono text-sm uppercase tracking-widest">
                                 <span>PILOT-{post.authorName || 'UNKNOWN'}</span>
                                 <span className="mx-3 opacity-50">//</span>
                                 <span>TRANSMITTED: {formattedDate}</span>
@@ -174,8 +174,8 @@ export default function Post() {
                         </div>
 
                         {/* Comments Section placeholder */}
-                        <div className="mt-20 border-t border-[var(--color-eva-border)] pt-10">
-                            <h2 className="font-heading text-2xl text-[var(--color-eva-orange)] mb-10 tracking-widest uppercase">&gt; COMLINK_TRANSCRIPTS</h2>
+                        <div className="mt-20 border-t border-eva-border pt-10">
+                            <h2 className="font-heading text-2xl text-eva-orange mb-10 tracking-widest uppercase">&gt; COMLINK_TRANSCRIPTS</h2>
                             {/* We will insert Comments component here */}
                             <Comments postId={post.$id} />
                         </div>
@@ -186,7 +186,7 @@ export default function Post() {
             {/* Focus Mode Toggle */}
             <button 
                 onClick={() => setFocusMode(!focusMode)}
-                className="fixed bottom-8 right-8 z-[10000] font-mono text-xs tracking-widest px-4 py-2 border border-[var(--color-eva-border)] bg-[rgba(10,10,15,0.8)] text-[var(--color-eva-muted)] hover:text-[var(--color-eva-white)] hover:border-[var(--color-eva-white)] transition-all"
+                className="fixed bottom-8 right-8 z-10000 font-mono text-xs tracking-widest px-4 py-2 border border-eva-border bg-[rgba(10,10,15,0.8)] text-eva-muted hover:text-eva-white hover:border-eva-white transition-all"
             >
                 {focusMode ? '[▣ EXIT FOCUS]' : '[⊞ FOCUS]'}
             </button>

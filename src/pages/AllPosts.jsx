@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import appwriteService from '../appwrite/config'
-import { Container, PostCard } from '../components'
+import { useEffect, useState } from 'react';
+import appwriteService from '../appwrite/config';
+import { Container, PostCard } from '../components';
 
 const MAGI_FILTERS = ['ALL', 'ANIME', 'MUSIC', 'TECH', 'ART', 'CULTURE', 'OPINION'];
 
@@ -51,7 +51,7 @@ function AllPosts() {
     <div className='w-full py-10 min-h-[80vh]'>
       <Container>
         {/* Filter & Search Rail */}
-        <div className="mb-10 border-b border-[var(--color-eva-border)] pb-6 animate-fade-in">
+        <div className="mb-10 border-b border-eva-border pb-6 animate-fade-in">
           {/* MAGI System selector */}
           <div className="flex overflow-x-auto gap-2 pb-4 scrollbar-hide">
             {MAGI_FILTERS.map(filter => (
@@ -72,25 +72,25 @@ function AllPosts() {
           </div>
 
           {/* Search bar directly below */}
-          <div className="relative mt-2 flex items-center bg-[rgba(0,255,65,0.02)] border border-[var(--color-eva-border)] p-3">
-            <span className="text-[var(--color-eva-green)] font-mono mr-3 font-bold">&gt;</span>
+          <div className="relative mt-2 flex items-center bg-[rgba(0,255,65,0.02)] border border-eva-border p-3">
+            <span className="text-eva-green font-mono mr-3 font-bold">&gt;</span>
             <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="QUERY_INPUT: search all posts..."
-                className="bg-transparent border-none outline-none w-full font-mono text-[var(--color-eva-green)] placeholder:text-[rgba(0,255,65,0.4)] caret-[var(--color-eva-green)]"
+                className="bg-transparent border-none outline-none w-full font-mono text-eva-green placeholder:text-[rgba(0,255,65,0.4)] caret-eva-green"
                 style={{ cursor: 'none' }}
             />
-            {searchQuery === '' && <span className="nav-cursor text-[var(--color-eva-green)] absolute left-[260px] pointer-events-none opacity-50"></span>}
+            {searchQuery === '' && <span className="nav-cursor text-eva-green absolute left-65 pointer-events-none opacity-50"></span>}
           </div>
         </div>
 
         {posts.length === 0 ? (
           <div className="empty-state max-w-lg mx-auto animate-fade-in">
-            <h2 className="text-[var(--color-eva-red)] mb-2">⚠ SYSTEM ALERT</h2>
-            <p className="text-[var(--color-eva-white)] uppercase mb-2">NO_TRANSMISSIONS_FOUND // SECTOR SILENT</p>
-            <p className="text-[var(--color-eva-muted)] text-sm">The SpilledTea archive is currently empty.</p>
+            <h2 className="text-eva-red mb-2">⚠ SYSTEM ALERT</h2>
+            <p className="text-eva-white uppercase mb-2">NO_TRANSMISSIONS_FOUND // SECTOR SILENT</p>
+            <p className="text-eva-muted text-sm">The SpilledTea archive is currently empty.</p>
           </div>
         ) : (
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
