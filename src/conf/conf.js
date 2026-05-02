@@ -8,7 +8,8 @@ const conf = {
     appwriteProjectId: getEnv("VITE_APPWRITE_PROJECT_ID"),
     appwriteDatabaseId: getEnv("VITE_APPWRITE_DATABASE_ID"),
     appwriteTableId: getEnv("VITE_APPWRITE_TABLE_ID"),
-    appwriteBucketId: getEnv("VITE_APPWRITE_BUCKET_ID")
+    appwriteBucketId: getEnv("VITE_APPWRITE_BUCKET_ID"),
+    appwriteCommentsId: import.meta.env.VITE_APPWRITE_COMMENTS_ID || "comments"
 };
 
 const missingKeys = Object.entries(conf)

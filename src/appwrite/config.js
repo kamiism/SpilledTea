@@ -98,14 +98,24 @@ export class Service{
 
     async getPost(slug){
         try {
-            return await this.tablesDB.getRow(
+            const post = await this.tablesDB.getRow(
                 conf.appwriteDatabaseId,
                 conf.appwriteTableId,
                 slug
-            )
+            );
+            
+            // Increment views in the background
+            if (post) {
+                this.tablesDB.updateRow(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteTableId,
+                    slug,
+                    { views: (post.views || 0) + 1 }
+                ).catch(e => console.error("Failed to increment views:", e));
+            }
+            return post;
         } catch(error) {
             throw error;
-            return false
         }
     }
 
@@ -118,7 +128,73 @@ export class Service{
             )
         } catch(error) {
             throw error;
-            return false
+        }
+    }
+
+    async toggleLikePost(slug, userId, currentLikes = []) {
+        try {
+            const hasLiked = currentLikes.includes(userId);
+            const newLikes = hasLiked 
+                ? currentLikes.filter(id => id !== userId) 
+                : [...currentLikes, userId];
+                
+            return await this.tablesDB.updateRow(
+                conf.appwriteDatabaseId,
+                conf.appwriteTableId,
+                slug,
+                { likes: newLikes }
+            );
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getComments(postId) {
+        try {
+            return await this.tablesDB.listRows(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentsId,
+                [Query.equal("postId", postId), Query.orderAsc("$createdAt")]
+            );
+        } catch (error) {
+            console.error("Failed to fetch comments", error);
+            return { rows: [] };
+        }
+    }
+
+    async addComment({ postId, userId, authorName, content }) {
+        try {
+            return await this.tablesDB.createRow(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentsId,
+                ID.unique(),
+                {
+                    postId,
+                    userId,
+                    authorName,
+                    content
+                },
+                [
+                    Permission.read(Role.any()),
+                    Permission.update(Role.user(userId)),
+                    Permission.delete(Role.user(userId))
+                ]
+            );
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async deleteComment(commentId) {
+        try {
+            await this.tablesDB.deleteRow(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentsId,
+                commentId
+            );
+            return true;
+        } catch (error) {
+            throw error;
         }
     }
 

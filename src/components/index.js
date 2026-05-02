@@ -12,6 +12,7 @@ import PostCard from "./PostCard";
 import RTE from "./RTE";
 import Select from "./Select";
 import Signup from "./SignUp";
+import Comments from "./Comments";
 
-export { AuthLayout, Button, Container, Footer, Header, Input, Login, Logo, ProfileDropdown, PostCard, PostForm, RTE, Select, Signup };
+export { AuthLayout, Button, Container, Footer, Header, Input, Login, Logo, ProfileDropdown, PostCard, PostForm, RTE, Select, Signup, Comments };
 
