@@ -17,6 +17,7 @@ function Header({ onSearchOpen }) {
     { name: "SIGNUP", slug: "/signup", active: !authStatus },
     { name: "ALL POSTS", slug: "/all-posts", active: authStatus },
     { name: "ADD POST", slug: "/add-post", active: authStatus },
+    { name: 'SAVED', slug: '/saved', active: true }
   ]
 
   const isActive = (slug) => location.pathname === slug

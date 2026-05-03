@@ -278,7 +278,7 @@ function AllPosts() {
                   <motion.div
                       key={post.$id}
                       variants={cardVariants}
-                      style={{ height: '100%', width: '100%', flexGrow: 0 }}
+                      style={{ height: 'auto', width: '100%', flexGrow: 0, alignSelf: 'start' }}
                   >
                       <PostCard {...post} />
                   </motion.div>

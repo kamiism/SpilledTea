@@ -95,7 +95,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
 
 
 
-          <div className='absolute inset-0 bg-gradient-to-t from-eva-black via-transparent to-transparent pointer-events-none'></div>
+          <div className='absolute inset-0 bg-linear-to-t from-eva-black via-transparent to-transparent pointer-events-none'></div>
 
           <div className="absolute bottom-3 left-4 right-4 z-10">
             <h3 className={`text-lg text-white leading-tight font-heading group-hover:text-eva-cyan transition-colors`}>
@@ -105,14 +105,20 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
         </div>
 
         {/* Bottom metadata bar */}
-        <div className="bg-black/40 px-4 py-3 flex items-center justify-between text-[10px] uppercase tracking-wider mt-auto font-mono text-eva-cyan/70">
+        <div className="bg-black/40 px-3 py-2 flex items-center justify-between text-[10px] uppercase tracking-wider mt-auto font-mono text-eva-cyan/70">
             <div className="flex flex-col gap-0.5 leading-none">
-              <span className="text-eva-cyan">@{authorName?.toLowerCase() || 'unknown'}</span>
+              <Link
+              to={`/author/${authorName?.toLowerCase()}`}
+              onClick={e => e.stopPropagation()}
+              style={{ color: 'var(--color-eva-cyan)', textDecoration: 'none' }}
+              >
+                @{authorName?.toLowerCase() || 'unknown'}
+              </Link>
               <span className="opacity-50 text-[9px]">{formattedDate}</span>
             </div>
             
             <div className="flex gap-2">
-              <div className="flex items-center gap-[4px] bg-[rgba(255,255,255,0.06)] rounded-[4px] px-2 py-1 text-[#00d4ff]">
+              <div className="flex items-center gap-1 bg-[rgba(255,255,255,0.06)] rounded-sm px-2 py-1 text-[#00d4ff]">
                 <Eye size={18} color="#00d4ff" />
                 <span className="text-[12px]">{views}</span>
               </div>
@@ -120,7 +126,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleLike}
-                className={`flex items-center gap-[4px] bg-[rgba(255,255,255,0.06)] rounded-[4px] px-2 py-1 transition-colors ${isLiked ? 'text-[#ff4466]' : 'text-eva-muted hover:text-[#ff4466]'}`}
+                className={`flex items-center gap-1 bg-[rgba(255,255,255,0.06)] rounded-sm px-2 py-1 transition-colors ${isLiked ? 'text-[#ff4466]' : 'text-eva-muted hover:text-[#ff4466]'}`}
               >
                 <Heart size={18} variant={isLiked ? 'Bold' : 'Linear'} color="#ff4466" />
                 <span className="text-[12px] text-[#ff4466]">{localLikes.length}</span>
@@ -129,9 +135,12 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleBookmark}
-                className={`hover:text-eva-purple transition-colors ml-1 flex items-center ${bookmarked ? 'text-eva-purple purple-glow' : ''}`}
+                className="flex items-center gap-1 bg-[rgba(255,255,255,0.06)] rounded-sm px-2 py-1 transition-colors"
+                style={{ color: bookmarked ? '#8a7ab5' : 'var(--color-eva-muted)' }}
+                title={bookmarked ? 'Remove from saved' : 'Save post'}
               >
-                <Bookmark size={18} variant={bookmarked ? 'Bold' : 'Linear'} />
+                  <Bookmark size={16} variant={bookmarked ? 'Bold' : 'Linear'} color="currentColor" />
+                  <span style={{ fontSize: '10px' }}>{bookmarked ? '★' : '☆'}</span>
               </motion.button>
             </div>
         </div>

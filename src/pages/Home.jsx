@@ -514,7 +514,7 @@ function Home() {
                             <motion.div
                                 key={post.$id}
                                 variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } }}
-                                style={{ height: '100%' }}
+                                style={{ height: 'auto', alignSelf: 'start' }}
                             >
                                 <PostCard {...post} />
                             </motion.div>

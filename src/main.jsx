@@ -8,11 +8,13 @@ import { ToastProvider } from './components/ToastNotification.jsx'
 import './index.css'
 import AddPost from "./pages/AddPost.jsx"
 import AllPosts from "./pages/AllPosts.jsx"
+import AuthorProfile from "./pages/AuthorProfile.jsx"
 import EditPost from "./pages/EditPost.jsx"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
 import NotFound from "./pages/NotFound.jsx"
 import Post from "./pages/Post.jsx"
+import SavedPosts from "./pages/SavedPosts.jsx"
 import SignUp from "./pages/SignUp.jsx"
 import store from './store/store.js'
 
@@ -75,6 +77,18 @@ const router = createBrowserRouter([
         {
             path: "*",
             element: <NotFound />,
+        },
+        {
+            path: "/author/:username",
+            element: <AuthorProfile />,
+        },
+        {
+            path: "/saved",
+            element: (
+                <AuthLayout authentication>
+                <SavedPosts />
+                </AuthLayout>
+            ),
         },
     ],
 },

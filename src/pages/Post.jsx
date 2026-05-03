@@ -193,7 +193,12 @@ export default function Post() {
                                 {post.title}
                             </h1>
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm uppercase tracking-widest" style={{ fontFamily: 'var(--font-heading)' }}>
-                                <span style={{ color: 'var(--color-eva-green)' }}>PILOT-{post.authorName || 'UNKNOWN'}</span>
+                                <Link
+                                to={`/author/${post.authorName?.toLowerCase()}`}
+                                style={{ color: 'var(--color-eva-green)', textDecoration: 'none' }}
+                                >
+                                    PILOT-{post.authorName || 'UNKNOWN'}
+                                </Link>
                                 <span style={{ opacity: 0.3 }}>//</span>
                                 <span style={{ color: 'var(--color-eva-muted)' }}>TRANSMITTED: {formattedDate}</span>
                                 <span style={{ opacity: 0.3 }}>//</span>
