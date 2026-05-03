@@ -33,7 +33,7 @@ function TrendingSidebar({ posts }) {
       position: 'sticky',
       top: '80px',
       background: '#0c1520',
-      borderLeft: '2px solid rgba(0,212,255,0.2)',
+      borderLeft: '2px solid rgba(78,140,160,0.2)',
       padding: '20px',
       maxHeight: 'calc(100vh - 100px)',
       overflowY: 'auto',

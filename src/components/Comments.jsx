@@ -135,7 +135,7 @@ function CommentItem({ comment, userData, onDelete, onReply, depth = 0 }) {
                             fontSize: '12px',
                             outline: 'none',
                         }}
-                        className="focus:border-[var(--color-eva-cyan)]"
+                        className="focus:border-eva-cyan"
                         autoFocus
                     />
                     <motion.button
@@ -290,12 +290,12 @@ export default function Comments({ postId }) {
                     <textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="INPUT_TRANSCRIPT_DATA..."
-                        className="w-full bg-[rgba(0,255,65,0.02)] border border-[var(--color-eva-border)] p-4 text-[var(--color-eva-white)] focus:border-[var(--color-eva-orange)] outline-none min-h-[100px] transition-all resize-none placeholder:text-[var(--color-eva-muted)]"
+                        placeholder="Write a comment..."
+                        className="w-full bg-[rgba(0,255,65,0.02)] border border-eva-border p-4 text-eva-white focus:border-eva-orange outline-none min-h-25 transition-all resize-none placeholder:text-eva-muted"
                     />
                     <div className="flex justify-between items-center mt-2">
-                        <span className="text-[10px] text-[var(--color-eva-muted)] uppercase tracking-[0.2em]">
-                            ENCRYPTION: ACTIVE // BUFFER_READY
+                        <span className="text-[10px] text-eva-muted uppercase tracking-[0.2em]">
+                            {`Posting as @${userData?.name?.toLowerCase()}`}
                         </span>
                         <motion.button
                             whileHover={{ scale: 1.03 }}
@@ -304,12 +304,12 @@ export default function Comments({ postId }) {
                             disabled={isSubmitting || !newComment.trim()}
                             className="btn-nerv text-xs py-1.5 px-6 disabled:opacity-50"
                         >
-                            {isSubmitting ? 'TRANSMITTING...' : 'SEND_DATA'}
+                            {isSubmitting ? 'Sending...' : 'SEND'}
                         </motion.button>
                     </div>
                 </form>
             ) : (
-                <div className="border border-dashed border-[var(--color-eva-border)] p-6 text-center text-[var(--color-eva-muted)] text-sm uppercase tracking-widest">
+                <div className="border border-dashed border-eva-border p-6 text-center text-eva-muted text-sm uppercase tracking-widest">
                     [AUTHENTICATION_REQUIRED_FOR_COMLINK_ACCESS]
                 </div>
             )}
@@ -333,8 +333,8 @@ export default function Comments({ postId }) {
                         />
                     ))
                 ) : (
-                    <div className="text-[var(--color-eva-muted)] text-xs uppercase tracking-[0.3em] text-center py-10 opacity-50">
-                        NO_TRANSCRIPTS_FOUND_IN_BUFFER
+                    <div className="text-eva-muted text-xs uppercase tracking-[0.3em] text-center py-10 opacity-50">
+                        No comments yet. Be the first.
                     </div>
                 )}
             </div>

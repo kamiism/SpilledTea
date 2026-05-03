@@ -33,13 +33,13 @@ export default function BackToTop() {
         justifyContent: 'center',
         background: 'var(--color-eva-panel)',
         border: '1px solid rgba(107, 163, 184, 0.5)',
-        color: 'var(--color-eva-cyan)',
+        color: '#8ab4c4',
         boxShadow: '0 0 10px rgba(107, 163, 184, 0.15)',
         cursor: 'pointer',
       }}
       aria-label="Back to top"
     >
-      <ChevronUp size={24} color="var(--color-eva-cyan)" />
+      <ChevronUp size={24} color="#8ab4c4" />
     </motion.button>
   );
 }

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
+import { Comments, Container } from "../components";
 import AuthorProfileCard from "../components/AuthorProfileCard";
 import BackToTop from "../components/BackToTop";
 import ReactionSystem from "../components/ReactionSystem";
 import TableOfContents from "../components/TableOfContents";
-import { Comments, Container } from "../components";
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -130,8 +130,8 @@ export default function Post() {
                     height: '3px',
                     zIndex: 99999,
                     width: `${scrollProgress}%`,
-                    background: 'linear-gradient(90deg, var(--color-eva-cyan), var(--color-eva-purple))',
-                    boxShadow: '0 0 10px var(--color-eva-cyan)',
+                    background: 'linear-gradient(90deg, #4e8ca0, #6b5a8a)',
+                    boxShadow: 'none',
                     transition: 'width 0.1s linear',
                 }}
             />
@@ -153,9 +153,11 @@ export default function Post() {
                                 className="w-full max-h-125 object-cover"
                             />
                             {/* Category tag */}
-                            <div className="absolute top-4 left-4 z-10 bg-[rgba(10,10,15,0.8)] border border-eva-orange px-3 py-1 font-mono text-eva-orange text-xs uppercase tracking-widest shadow-[0_0_12px_rgba(255,102,0,0.3)]">
-                                VIEWS: {post.views || 0} // TRANSMISSION_ARCHIVE
-                            </div>
+                            {post.category && (
+                                <div className="absolute top-4 left-4 z-10 bg-[rgba(10,10,15,0.8)] border border-[rgba(78,140,160,0.5)] px-3 py-1 font-mono text-xs uppercase tracking-widest" style={{ color: '#8ab4c4' }}>
+                                    {post.category}
+                                </div>
+                            )}
                             
                             {/* Dark gradient fade for aesthetics */}
                             <div className="absolute inset-0 bg-linear-to-t from-eva-black via-[rgba(10,10,15,0.3)] to-transparent pointer-events-none"></div>
@@ -191,11 +193,11 @@ export default function Post() {
                                 {post.title}
                             </h1>
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm uppercase tracking-widest" style={{ fontFamily: 'var(--font-heading)' }}>
-                                <span style={{ color: 'var(--color-eva-green)' }}>-{post.authPILOTorName || 'UNKNOWN'}</span>
+                                <span style={{ color: 'var(--color-eva-green)' }}>PILOT-{post.authorName || 'UNKNOWN'}</span>
                                 <span style={{ opacity: 0.3 }}>//</span>
                                 <span style={{ color: 'var(--color-eva-muted)' }}>TRANSMITTED: {formattedDate}</span>
                                 <span style={{ opacity: 0.3 }}>//</span>
-                                <span style={{ color: 'var(--color-eva-purple)' }}>{getReadTime()}</span>
+                                <span style={{ color: '#8a7ab5' }}>{getReadTime()}</span>
                                 <span style={{ opacity: 0.3 }}>//</span>
                                 <span style={{ color: 'var(--color-eva-cyan)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                                     VIEWS: {post.views || 0}

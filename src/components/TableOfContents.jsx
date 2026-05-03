@@ -69,7 +69,7 @@ export default function TableOfContents({ contentHtml }) {
         fontSize: '10px',
         letterSpacing: '0.2em',
         textTransform: 'uppercase',
-        color: 'var(--color-eva-cyan)',
+        color: '#8ab4c4',
         marginBottom: '12px',
         paddingBottom: '8px',
         borderBottom: '1px solid var(--color-eva-border)',

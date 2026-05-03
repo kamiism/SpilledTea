@@ -73,7 +73,7 @@ export default function ReactionSystem({ postId }) {
           <span style={{ fontSize: '18px' }}>{emoji}</span>
           <span style={{
             fontSize: '11px',
-            color: reacted[label] ? 'var(--color-eva-cyan)' : 'var(--color-eva-muted)',
+            color: reacted[label] ? '#8ab4c4' : 'var(--color-eva-muted)',
             minWidth: '12px',
           }}>
             {counts[label]}
