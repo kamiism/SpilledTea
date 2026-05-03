@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ export default function PostForm({ post }) {
             slug: post?.$id || "",
             content: post?.content || "",
             status: post?.status || "active",
+            category: post?.category || "",
         },
     });
 
@@ -82,16 +83,16 @@ export default function PostForm({ post }) {
     const hasImage = selectedImage && selectedImage.length > 0;
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="max-w-4xl mx-auto border border-[var(--color-eva-border)] bg-[var(--color-eva-panel)] relative">
+        <form onSubmit={handleSubmit(submit)} className="max-w-4xl mx-auto border border-eva-border bg-eva-panel relative">
             <div className="corner-brackets absolute inset-0 pointer-events-none z-10"></div>
             
             {/* Form Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-eva-border)] bg-[rgba(0,255,65,0.02)]">
-                <div className="font-heading text-[var(--color-eva-orange)] text-xl tracking-widest uppercase">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-eva-border bg-[rgba(0,255,65,0.02)]">
+                <div className="font-heading text-eva-orange text-xl tracking-widest uppercase">
                     &gt; {post ? 'EDIT TRANSMISSION' : 'COMPOSE TRANSMISSION'}
                 </div>
-                <div className="flex items-center gap-2 font-mono text-xs text-[var(--color-eva-green)] uppercase tracking-widest">
-                    <span className={`w-2 h-2 rounded-full bg-[var(--color-eva-green)] ${isSaving ? 'animate-pulse' : ''}`} style={{ boxShadow: '0 0 8px var(--color-eva-green)'}}></span>
+                <div className="flex items-center gap-2 font-mono text-xs text-eva-green uppercase tracking-widest">
+                    <span className={`w-2 h-2 rounded-full bg-eva-green ${isSaving ? 'animate-pulse' : ''}`} style={{ boxShadow: '0 0 8px var(--color-eva-green)'}}></span>
                     {isSaving ? 'BUFFER_SYNC: ACTIVE' : 'BUFFER_SYNC: SAVED'}
                 </div>
             </div>
@@ -102,17 +103,17 @@ export default function PostForm({ post }) {
                     <input
                         type="text"
                         placeholder="Post Title"
-                        className="w-full bg-transparent border-none border-b border-[var(--color-eva-orange)] pb-2 text-2xl md:text-3xl text-[var(--color-eva-white)] font-heading outline-none placeholder:text-[rgba(232,232,232,0.3)] transition-all focus:shadow-[0_4px_12px_rgba(255,102,0,0.15)] rounded-none"
+                        className="w-full bg-transparent border-none border-b border-eva-orange pb-2 text-2xl md:text-3xl text-eva-white font-heading outline-none placeholder:text-[rgba(232,232,232,0.3)] transition-all focus:shadow-[0_4px_12px_rgba(255,102,0,0.15)] rounded-none"
                         {...register("title", { required: true })}
                     />
-                    {errors.title && <p className="text-[var(--color-eva-red)] text-xs mt-1 font-mono uppercase tracking-widest">⚠ TITLE_REQUIRED</p>}
+                    {errors.title && <p className="text-eva-red text-xs mt-1 font-mono uppercase tracking-widest">⚠ TITLE_REQUIRED</p>}
                     
-                    <div className="flex items-center mt-3 text-[var(--color-eva-muted)] font-mono text-xs uppercase tracking-widest" style={{ display: 'none' }}>
+                    <div className="flex items-center mt-3 text-eva-muted font-mono text-xs uppercase tracking-widest" style={{ display: 'none' }}>
                         <span>AUTO_SLUG: </span>
                         <input
                             type="text"
                             placeholder="pending..."
-                            className="bg-transparent border-none outline-none ml-2 text-[var(--color-eva-green)] w-full placeholder:text-[rgba(0,255,65,0.3)]"
+                            className="bg-transparent border-none outline-none ml-2 text-eva-green w-full placeholder:text-[rgba(0,255,65,0.3)]"
                             {...register("slug", { required: true })}
                             onInput={(e) => setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true })}
                         />
@@ -121,8 +122,8 @@ export default function PostForm({ post }) {
 
                 {/* File Upload (Tactical styling) */}
                 <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[var(--color-eva-green)] text-xs uppercase tracking-widest">Cover Image:</label>
-                    <div className="border border-dashed border-[var(--color-eva-border)] bg-[rgba(10,10,15,0.5)] p-4 hover:border-[var(--color-eva-green)] transition-colors cursor-pointer relative overflow-hidden group">
+                    <label className="font-mono text-eva-green text-xs uppercase tracking-widest">Cover Image:</label>
+                    <div className="border border-dashed border-eva-border bg-[rgba(10,10,15,0.5)] p-4 hover:border-eva-green transition-colors cursor-pointer relative overflow-hidden group">
                         <input
                             type="file"
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
@@ -130,55 +131,74 @@ export default function PostForm({ post }) {
                             {...register("image", { required: !post })}
                         />
                         <div className="flex items-center gap-4 relative z-10 pointer-events-none">
-                            <div className={`w-10 h-10 border flex items-center justify-center font-mono transition-colors ${hasImage ? 'border-[var(--color-eva-orange)] bg-[var(--color-eva-orange)] text-black' : 'border-[var(--color-eva-green)] text-[var(--color-eva-green)] group-hover:bg-[var(--color-eva-green)] group-hover:text-black'}`}>
+                            <div className={`w-10 h-10 border flex items-center justify-center font-mono transition-colors ${hasImage ? 'border-eva-orange bg-eva-orange text-black' : 'border-eva-green text-eva-green group-hover:bg-eva-green group-hover:text-black'}`}>
                                 {hasImage ? '✓' : '+'}
                             </div>
                             <div className="flex flex-col font-mono text-xs uppercase tracking-widest">
-                                <span className={hasImage ? "text-[var(--color-eva-orange)]" : "text-[var(--color-eva-white)]"}>
+                                <span className={hasImage ? "text-eva-orange" : "text-eva-white"}>
                                     {hasImage ? selectedImage[0].name : "Click to upload cover image"}
                                 </span>
-                                <span className="text-[var(--color-eva-muted)]">
+                                <span className="text-eva-muted">
                                     {hasImage ? "VISUAL DATA ACQUIRED" : "PNG, JPG // MAX 10MB"}
                                 </span>
                             </div>
                         </div>
                     </div>
-                    {errors.image && <p className="text-[var(--color-eva-red)] text-xs font-mono uppercase tracking-widest">⚠ VISUAL_DATA_REQUIRED</p>}
+                    {errors.image && <p className="text-eva-red text-xs font-mono uppercase tracking-widest">⚠ VISUAL_DATA_REQUIRED</p>}
                     
                     {post && post.featuredImage && (
-                        <div className="mt-2 border border-[var(--color-eva-border)] w-48 relative overflow-hidden">
-                            <div className="absolute top-0 left-0 bg-[var(--color-eva-black)] text-[var(--color-eva-orange)] text-[10px] px-2 font-mono z-10 border-b border-r border-[var(--color-eva-border)]">CURRENT_DATA</div>
+                        <div className="mt-2 border border-eva-border w-48 relative overflow-hidden">
+                            <div className="absolute top-0 left-0 bg-eva-black text-eva-orange text-[10px] px-2 font-mono z-10 border-b border-r border-eva-border">CURRENT_DATA</div>
                             <img src={appwriteService.getFilePreview(post.featuredImage)} alt="Current" className="w-full opacity-80" />
                         </div>
                     )}
                 </div>
 
+                {/* Category Selector */}
+                <div className="flex flex-col gap-2">
+                    <label className="font-mono text-eva-green text-xs uppercase tracking-widest">Category:</label>
+                        <select
+                        className="bg-transparent border border-eva-border text-eva-white font-mono text-xs p-3 outline-none uppercase tracking-widest hover:border-eva-orange cursor-pointer"
+                        {...register("category", { required: true })}
+                        defaultValue={post?.category || ""}
+                        >
+                            <option className="bg-eva-panel" value="" disabled>Select category...</option>
+                            <option className="bg-eva-panel" value="ANIME">ANIME</option>
+                            <option className="bg-eva-panel" value="MUSIC">MUSIC</option>
+                            <option className="bg-eva-panel" value="TECH">TECH</option>
+                            <option className="bg-eva-panel" value="ART">ART</option>
+                            <option className="bg-eva-panel" value="CULTURE">CULTURE</option>
+                            <option className="bg-eva-panel" value="OPINION">OPINION</option>
+                        </select>
+                    {errors.category && <p className="text-eva-red text-xs font-mono uppercase tracking-widest">⚠ CATEGORY_REQUIRED</p>}
+                </div>
+
                 {/* RTE Content */}
-                <div className="flex flex-col relative border border-[var(--color-eva-border)]">
-                    <div className="bg-[var(--color-eva-black)] px-4 py-2 border-b border-[var(--color-eva-border)] flex items-center justify-between font-mono text-xs uppercase tracking-widest">
-                        <span className="text-[var(--color-eva-green)]">Content</span>
-                        <div className="flex gap-4 text-[var(--color-eva-muted)]">
-                            <span>WORD_COUNT: <span className="text-[var(--color-eva-green)]">{wordCount}</span></span>
-                            <span>EST. READ: <span className="text-[var(--color-eva-orange)]">{readTime} MIN</span></span>
+                <div className="flex flex-col relative border border-eva-border">
+                    <div className="bg-eva-black px-4 py-2 border-b border-eva-border flex items-center justify-between font-mono text-xs uppercase tracking-widest">
+                        <span className="text-eva-green">Content</span>
+                        <div className="flex gap-4 text-eva-muted">
+                            <span>WORD_COUNT: <span className="text-eva-green">{wordCount}</span></span>
+                            <span>EST. READ: <span className="text-eva-orange">{readTime} MIN</span></span>
                         </div>
                     </div>
                     <RTE name="content" control={control} defaultValue={getValues("content")} />
                 </div>
 
                 {/* Status select (minimal) */}
-                <div className="flex items-center gap-4 border border-[var(--color-eva-border)] p-4 bg-[rgba(10,10,15,0.5)]">
-                    <label className="font-mono text-[var(--color-eva-green)] text-xs uppercase tracking-widest">TRANSMISSION_STATUS:</label>
+                <div className="flex items-center gap-4 border border-eva-border p-4 bg-[rgba(10,10,15,0.5)]">
+                    <label className="font-mono text-eva-green text-xs uppercase tracking-widest">TRANSMISSION_STATUS:</label>
                     <select
-                        className="bg-transparent border border-[var(--color-eva-border)] text-[var(--color-eva-white)] font-mono text-xs p-2 outline-none uppercase tracking-widest hover:border-[var(--color-eva-orange)]"
+                        className="bg-transparent border border-eva-border text-eva-white font-mono text-xs p-2 outline-none uppercase tracking-widest hover:border-eva-orange"
                         {...register("status", { required: true })}
                     >
-                        <option className="bg-[var(--color-eva-panel)]" value="active">ACTIVE [PUBLIC]</option>
-                        <option className="bg-[var(--color-eva-panel)]" value="inactive">INACTIVE [DRAFT]</option>
+                        <option className="bg-eva-panel" value="active">ACTIVE [PUBLIC]</option>
+                        <option className="bg-eva-panel" value="inactive">INACTIVE [DRAFT]</option>
                     </select>
                 </div>
 
                 {errors.root && (
-                    <div className="border border-[var(--color-eva-red)] bg-[rgba(255,32,32,0.1)] p-4 font-mono text-xs text-[var(--color-eva-red)] uppercase tracking-widest">
+                    <div className="border border-eva-red bg-[rgba(255,32,32,0.1)] p-4 font-mono text-xs text-eva-red uppercase tracking-widest">
                         ⚠ {errors.root.message}
                     </div>
                 )}
@@ -189,9 +209,9 @@ export default function PostForm({ post }) {
                     disabled={isSubmitting}
                     className="w-full relative group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    <div className="absolute inset-0 bg-[var(--color-eva-orange)] opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
-                    <div className="relative border-2 border-[var(--color-eva-orange)] px-8 py-5 flex items-center justify-center transition-colors duration-200 group-hover:border-[var(--color-eva-orange)]">
-                        <span className="font-heading text-xl uppercase tracking-widest text-[var(--color-eva-orange)] group-hover:text-[var(--color-eva-black)]">
+                    <div className="absolute inset-0 bg-eva-orange opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    <div className="relative border-2 border-eva-orange px-8 py-5 flex items-center justify-center transition-colors duration-200 group-hover:border-eva-orange">
+                        <span className="font-heading text-xl uppercase tracking-widest text-eva-orange group-hover:text-eva-black">
                             {isSubmitting ? (
                                 <span className="flex items-center gap-2">
                                     TRANSMITTING<span className="flex gap-1"><span className="animate-bounce">.</span><span className="animate-bounce" style={{animationDelay: '100ms'}}>.</span><span className="animate-bounce" style={{animationDelay: '200ms'}}>.</span></span>

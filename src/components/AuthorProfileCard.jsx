@@ -33,7 +33,7 @@ export default function AuthorProfileCard({ authorName, postCount = 0 }) {
           width: '64px',
           height: '64px',
           clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-          background: 'linear-gradient(135deg, var(--color-eva-cyan), var(--color-eva-purple))',
+          background: 'linear-gradient(135deg, #4e8ca0, #6b5a8a)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

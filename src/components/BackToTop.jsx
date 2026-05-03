@@ -32,9 +32,9 @@ export default function BackToTop() {
         alignItems: 'center',
         justifyContent: 'center',
         background: 'var(--color-eva-panel)',
-        border: '1px solid var(--color-eva-cyan)',
+        border: '1px solid rgba(107, 163, 184, 0.5)',
         color: 'var(--color-eva-cyan)',
-        boxShadow: '0 0 15px rgba(0, 212, 255, 0.3)',
+        boxShadow: '0 0 10px rgba(107, 163, 184, 0.15)',
         cursor: 'pointer',
       }}
       aria-label="Back to top"

@@ -3,9 +3,9 @@ import { Eye, TrendUp } from 'iconsax-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import appwriteService from '../appwrite/config';
+import { Container, PostCard } from '../components';
 import NewsletterWidget from '../components/NewsletterWidget';
 import SkeletonCard from '../components/SkeletonCard';
-import { Container, PostCard } from '../components';
 
 const MAGI_FILTERS = ['ALL', 'ANIME', 'MUSIC', 'TECH', 'ART', 'CULTURE', 'OPINION'];
 
@@ -172,7 +172,7 @@ function AllPosts() {
   });
 
   return (
-    <div className='w-full pt-[48px] pb-10 min-h-[80vh]'>
+    <div className='w-full pt-12 pb-10 min-h-[80vh]'>
       <Container>
         {/* Filter & Search Rail */}
         <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--color-eva-border)', paddingBottom: '24px' }}>

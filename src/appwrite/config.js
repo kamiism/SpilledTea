@@ -13,7 +13,7 @@ export class Service{
         this.tablesDB = new TablesDB(this.client);
         this.storage = new Storage(this.client);
     }
-    async createPost({title, slug, content, featuredImage, status, userId, authorName}){
+    async createPost({title, slug, content, featuredImage, status, userId, authorName, category}){
         try{
             return await this.tablesDB.createRow(
                 conf.appwriteDatabaseId,
@@ -26,6 +26,7 @@ export class Service{
                     status,
                     userId,
                     authorName,
+                    category,
                 },
                 [
                     Permission.read(Role.any()),
@@ -38,7 +39,7 @@ export class Service{
         }
     }
 
-    async updatePost(slug, {title, content, featuredImage, status}){
+    async updatePost(slug, {title, content, featuredImage, status, category}){
         try {
             return await this.tablesDB.updateRow(
                 conf.appwriteDatabaseId,
@@ -49,6 +50,7 @@ export class Service{
                     content,
                     featuredImage,
                     status,
+                    category,
                 }
 
             )

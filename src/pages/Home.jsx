@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { Activity, Clock, Eye, DocumentText, Radio, Profile2User } from 'iconsax-react';
+import { Activity, Clock, DocumentText, Eye, Profile2User, Radio } from 'iconsax-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import appwriteService from "../appwrite/config";
+import { Container, PostCard } from '../components';
 import AnimatedCounter from '../components/AnimatedCounter';
 import SkeletonCard from '../components/SkeletonCard';
-import { Container, PostCard } from '../components';
 
 /* ── Hero Background (unchanged from original) ── */
 function HeroBackground() {
@@ -382,7 +382,7 @@ function Home() {
         return (
             <div className="w-full flex-1 flex flex-col bg-eva-black py-0 relative overflow-hidden">
                 {/* Compact Hero Section */}
-                <div className="relative w-full pt-[48px] pb-[40px] md:pt-[48px] md:pb-[40px] border-b border-eva-cyan/20">
+                <div className="relative w-full pt-12 pb-10 md:pt-12 md:pb-10 border-b border-eva-cyan/20">
                     <HeroBackground />
                     <Container>
                         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -424,7 +424,7 @@ function Home() {
     return (
         <div className='w-full'>
             {/* Compact 2-Column Hero */}
-            <div className="relative w-full pt-[48px] pb-[40px] md:pt-[48px] md:pb-[40px] bg-eva-navy border-b border-eva-cyan/20 overflow-hidden mb-0">
+            <div className="relative w-full pt-12 pb-10 md:pt-12 md:pb-10 bg-eva-navy border-b border-eva-cyan/20 overflow-hidden mb-0">
                 <HeroBackground />
                 <Container>
                     <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-2">
