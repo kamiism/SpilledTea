@@ -133,7 +133,7 @@ export default function SearchModal({ isOpen, onClose }) {
                 alignItems: 'center',
                 gap: '4px',
               }}>
-                ESC <X size={12} />
+                ESC <X size={12} color="currentColor" />
               </button>
             </div>
 

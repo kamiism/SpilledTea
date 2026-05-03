@@ -114,7 +114,7 @@ function TrendingSidebar({ posts }) {
                 textTransform: 'uppercase',
               }}>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}>
-                  <Eye size={9} /> {post.views || 0}
+                  <Eye size={9} color="currentColor" /> {post.views || 0}
                 </span>
                 <span style={{ opacity: 0.4 }}>•</span>
                 <span>@{post.authorName?.toLowerCase() || 'unknown'}</span>

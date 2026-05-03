@@ -85,7 +85,7 @@ export function ToastProvider({ children }) {
                   onClick={() => removeToast(toast.id)}
                   style={{ background: 'none', border: 'none', color: 'var(--color-eva-muted)', cursor: 'pointer', padding: '2px' }}
                 >
-                  <X size={14} />
+                  <X size={14} color="currentColor" />
                 </button>
               </motion.div>
             );

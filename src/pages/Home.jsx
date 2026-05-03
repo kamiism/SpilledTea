@@ -193,7 +193,7 @@ function LatestTransmission({ post }) {
                   alignItems: 'center',
                   gap: '4px',
                 }}>
-                  <DocumentText size={10} /> INTEL_LOG
+                  <DocumentText size={10} color="currentColor" /> INTEL_LOG
                 </span>
                 <span style={{
                   fontFamily: 'var(--font-heading)',
@@ -207,7 +207,7 @@ function LatestTransmission({ post }) {
                   alignItems: 'center',
                   gap: '4px',
                 }}>
-                  <Clock size={10} /> {readTime()}
+                  <Clock size={10} color="currentColor" /> {readTime()}
                 </span>
               </div>
 
@@ -243,7 +243,7 @@ function LatestTransmission({ post }) {
                 <span>{formattedDate}</span>
                 <span style={{ opacity: 0.4 }}>//</span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Eye size={10} /> {post.views || 0}
+                  <Eye size={10} color="currentColor" /> {post.views || 0}
                 </span>
               </div>
             </div>

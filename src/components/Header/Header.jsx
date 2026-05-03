@@ -77,7 +77,7 @@ function Header({ onSearchOpen }) {
               aria-label="Search"
               title="Search (Press /)"
             >
-              <Search size={16} />
+              <Search size={18} color="currentColor" />
             </motion.button>
           </li>
 

@@ -148,7 +148,7 @@ export default function NotFound() {
               className="btn-nerv"
               style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}
             >
-              <Home size={16} />
+              <Home size={16} color="currentColor" />
               RETURN TO BASE
             </Link>
           </motion.div>

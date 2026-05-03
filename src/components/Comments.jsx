@@ -77,7 +77,7 @@ function CommentItem({ comment, userData, onDelete, onReply, depth = 0 }) {
                                 gap: '4px',
                             }}
                         >
-                            <MessageSquare size={10} /> REPLY
+                            <MessageSquare size={10} color="currentColor" /> REPLY
                         </button>
                     )}
                     {userData && userData.$id === comment.userId && (
@@ -97,7 +97,7 @@ function CommentItem({ comment, userData, onDelete, onReply, depth = 0 }) {
                                 gap: '4px',
                             }}
                         >
-                            <Trash2 size={10} /> PURGE
+                            <Trash2 size={10} color="currentColor" /> PURGE
                         </button>
                     )}
                 </div>

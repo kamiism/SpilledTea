@@ -105,7 +105,7 @@ export default function NewsletterWidget() {
               fontWeight: 700,
             }}
           >
-            {submitted ? 'LINKED' : <><Send size={14} /> CONNECT</>}
+            {submitted ? 'LINKED' : <><Send size={14} color="currentColor" /> CONNECT</>}
           </motion.button>
         </form>
       </div>
