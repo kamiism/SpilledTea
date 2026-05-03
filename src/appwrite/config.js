@@ -104,14 +104,24 @@ export class Service{
                 slug
             );
             
-            // Increment views in the background
             if (post) {
-                this.tablesDB.updateRow(
-                    conf.appwriteDatabaseId,
-                    conf.appwriteTableId,
-                    slug,
-                    { views: (post.views || 0) + 1 }
-                ).catch(e => console.error("Failed to increment views:", e));
+                // Prevent multiple view increments in the same session
+                const viewedPosts = JSON.parse(sessionStorage.getItem('viewedPosts') || '[]');
+                
+                if (!viewedPosts.includes(slug)) {
+                    post.views = (post.views || 0) + 1; // Optimistically update the UI
+                    
+                    // Increment views in the background
+                    this.tablesDB.updateRow(
+                        conf.appwriteDatabaseId,
+                        conf.appwriteTableId,
+                        slug,
+                        { views: post.views }
+                    ).then(() => {
+                        viewedPosts.push(slug);
+                        sessionStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
+                    }).catch(e => console.error("Failed to increment views:", e));
+                }
             }
             return post;
         } catch(error) {

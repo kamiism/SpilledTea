@@ -181,20 +181,22 @@ function LatestTransmission({ post }) {
             {/* Content */}
             <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 1 }} className="col-span-1">
               <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
-                <span style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '10px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-eva-cyan)',
-                  border: '1px solid var(--color-eva-cyan)',
-                  padding: '2px 10px',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}>
-                  <DocumentText size={10} color="currentColor" /> INTEL_LOG
-                </span>
+                {post.category && (
+                  <span style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '10px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--color-eva-cyan)',
+                    border: '1px solid var(--color-eva-cyan)',
+                    padding: '2px 10px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}>
+                    <DocumentText size={10} color="currentColor" /> {post.category}
+                  </span>
+                )}
                 <span style={{
                   fontFamily: 'var(--font-heading)',
                   fontSize: '10px',
@@ -272,9 +274,9 @@ function StatsBar({ totalPosts, totalReaders, newestAuthor }) {
       }}
     >
       {[
-        { label: 'TOTAL_POSTS', value: totalPosts, icon: DocumentText, color: 'var(--color-eva-cyan)' },
-        { label: 'TOTAL_READERS', value: totalReaders, icon: Profile2User, color: 'var(--color-eva-green)' },
-        { label: 'LATEST WRITER', value: newestAuthor, icon: Activity, color: 'var(--color-eva-orange)', isText: true },
+        { label: 'Posts', value: totalPosts, icon: DocumentText, color: 'var(--color-eva-cyan)' },
+        { label: 'Readers', value: totalReaders, icon: Profile2User, color: 'var(--color-eva-green)' },
+        { label: 'Latest', value: newestAuthor, icon: Activity, color: 'var(--color-eva-orange)', isText: true },
       ].map((item, i) => (
         <div key={i} style={{
           flex: '1 1 200px',
@@ -481,7 +483,7 @@ function Home() {
                       textTransform: 'uppercase',
                       color: 'var(--color-eva-orange)',
                     }}>
-                      &gt; YOUR_SPILLS [{posts.length}]
+                      &gt; Your Spills
                     </div>
                     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                       <Link to="/add-post" className="btn-nerv py-2 px-6 text-xs">

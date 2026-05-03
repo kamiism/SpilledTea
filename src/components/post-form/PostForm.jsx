@@ -107,7 +107,7 @@ export default function PostForm({ post }) {
                     />
                     {errors.title && <p className="text-[var(--color-eva-red)] text-xs mt-1 font-mono uppercase tracking-widest">⚠ TITLE_REQUIRED</p>}
                     
-                    <div className="flex items-center mt-3 text-[var(--color-eva-muted)] font-mono text-xs uppercase tracking-widest">
+                    <div className="flex items-center mt-3 text-[var(--color-eva-muted)] font-mono text-xs uppercase tracking-widest" style={{ display: 'none' }}>
                         <span>AUTO_SLUG: </span>
                         <input
                             type="text"
@@ -135,7 +135,7 @@ export default function PostForm({ post }) {
                             </div>
                             <div className="flex flex-col font-mono text-xs uppercase tracking-widest">
                                 <span className={hasImage ? "text-[var(--color-eva-orange)]" : "text-[var(--color-eva-white)]"}>
-                                    {hasImage ? selectedImage[0].name : "SELECT_IMAGE_FILE"}
+                                    {hasImage ? selectedImage[0].name : "Click to upload cover image"}
                                 </span>
                                 <span className="text-[var(--color-eva-muted)]">
                                     {hasImage ? "VISUAL DATA ACQUIRED" : "PNG, JPG // MAX 10MB"}

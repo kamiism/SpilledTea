@@ -155,11 +155,7 @@ function AllPosts() {
             <div className="skeleton-shimmer" style={{ width: '100%', height: '48px', marginBottom: '16px' }}></div>
             <div className="skeleton-shimmer" style={{ width: '100%', height: '48px' }}></div>
           </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '24px',
-          }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start w-full">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <SkeletonCard key={i} />
             ))}
@@ -171,7 +167,8 @@ function AllPosts() {
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = post.title?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
+    const matchesFilter = activeFilter === 'ALL' || post.category === activeFilter;
+    return matchesSearch && matchesFilter;
   });
 
   return (
@@ -260,15 +257,28 @@ function AllPosts() {
                 display: 'grid',
                 gridTemplateColumns: 'repeat(1, 1fr)',
                 gap: '24px',
-                alignContent: 'start',
+                alignItems: 'start',
+                width: '100%',
               }}
-              className="allposts-grid"
+              className="responsive-grid"
             >
+              <style>{`
+                @media (min-width: 640px) {
+                  .responsive-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                  }
+                }
+                @media (min-width: 1024px) {
+                  .responsive-grid {
+                    grid-template-columns: repeat(3, 1fr) !important;
+                  }
+                }
+              `}</style>
               {filteredPosts.map((post) => (
                   <motion.div
                       key={post.$id}
                       variants={cardVariants}
-                      style={{ height: '100%' }}
+                      style={{ height: '100%', width: '100%', flexGrow: 0 }}
                   >
                       <PostCard {...post} />
                   </motion.div>

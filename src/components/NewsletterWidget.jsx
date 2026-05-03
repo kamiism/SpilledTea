@@ -46,11 +46,11 @@ export default function NewsletterWidget() {
         <h3 style={{
           fontFamily: 'var(--font-heading)',
           fontSize: '24px',
-          color: 'var(--color-eva-cyan)',
+          color: '#e2ddd5',
           textTransform: 'uppercase',
           letterSpacing: '0.15em',
           marginBottom: '8px',
-          textShadow: '0 0 15px rgba(0, 212, 255, 0.5)',
+          textShadow: 'none',
         }}>
           JOIN THE NETWORK
         </h3>
@@ -69,7 +69,7 @@ export default function NewsletterWidget() {
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            placeholder="ENTER_COMLINK_ADDRESS..."
+            placeholder="Your email address"
             style={{
               flex: 1,
               background: 'rgba(0, 212, 255, 0.03)',

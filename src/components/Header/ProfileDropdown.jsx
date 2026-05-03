@@ -95,13 +95,13 @@ export default function ProfileDropdown() {
             {isOpen && (
                 <>
                     <div 
-                        className="fixed inset-0 z-40 md:hidden bg-black/80" 
+                        className="fixed inset-0 z-40 bg-[rgba(0,0,0,0.4)]" 
                         onClick={() => setIsOpen(false)}
                         aria-hidden="true"
                     ></div>
 
                     <div 
-                        className="fixed bottom-0 left-0 w-full z-50 md:absolute md:top-[120%] md:bottom-auto md:left-auto md:-right-4 md:w-64 bg-[var(--color-eva-panel)] border border-[var(--color-eva-orange)] animate-fade-in"
+                        className="fixed bottom-0 left-0 w-full z-50 md:absolute md:top-[120%] md:bottom-auto md:left-auto md:-right-4 md:w-64 bg-[var(--color-eva-panel)] border border-[rgba(255,255,255,0.08)] animate-fade-in"
                         style={{ boxShadow: '0 4px 20px rgba(255,102,0,0.15)' }}
                     >
                         <div className="corner-brackets absolute inset-0 pointer-events-none"></div>
@@ -163,7 +163,7 @@ export default function ProfileDropdown() {
                                 onClick={logoutHandler}
                                 className="w-full py-3 font-heading tracking-widest uppercase text-center border border-[var(--color-eva-red)] text-[var(--color-eva-red)] hover:bg-[var(--color-eva-red)] hover:text-white transition-colors"
                             >
-                                TERMINATE SYNC
+                                SIGN OUT
                             </button>
                         </div>
                     </div>
