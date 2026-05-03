@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Bookmark, Clock, Eye, Heart, Tag } from 'iconsax-react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import appwriteService from "../appwrite/config";
 
-function PostCard({ $id, title, featuredImage, $createdAt, authorName, likes = [], views = 0, featured = false }) {
+function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, likes = [], views = 0, featured = false }) {
   const userData = useSelector((state) => state.auth.userData);
   const [localLikes, setLocalLikes] = useState(likes);
   const [isLiked, setIsLiked] = useState(false);
@@ -12,14 +14,24 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, likes = [
   useEffect(() => {
     if (userData?.$id) {
       setIsLiked(localLikes.includes(userData.$id));
+      // Load bookmark state from localStorage
+      const saved = localStorage.getItem(`bookmark-${$id}`);
+      setBookmarked(saved === 'true');
     }
-  }, [userData?.$id, localLikes]);
+  }, [userData?.$id, localLikes, $id]);
 
   const formattedDate = $createdAt ? new Date($createdAt).toLocaleDateString('en-US', {
     month: '2-digit',
     day: '2-digit',
     year: 'numeric'
   }).replace(/\//g, '.') : '';
+
+  // Estimate reading time from content
+  const getReadTime = () => {
+    if (!content) return '2 min';
+    const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+    return `${Math.max(1, Math.ceil(words / 200))} min`;
+  };
 
   const handleLike = async (e) => {
     e.preventDefault();
@@ -42,13 +54,21 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, likes = [
   const handleBookmark = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setBookmarked(!bookmarked);
+    if (!userData) {
+      alert("Please login to bookmark posts");
+      return;
+    }
+    const newState = !bookmarked;
+    setBookmarked(newState);
+    localStorage.setItem(`bookmark-${$id}`, String(newState));
   };
 
   return (
     <Link to={`/post/${$id}`} className='block group h-full relative'>
-      <div 
-        className={`h-full flex flex-col transition-all duration-300 bg-eva-panel overflow-hidden relative border ${featured ? 'border-eva-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]' : 'border-eva-border'} hover:border-eva-cyan group-hover:-translate-y-2 group-hover:shadow-[0_10px_30px_rgba(0,212,255,0.2)]`}
+      <motion.div
+        whileHover={{ y: -6 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        className={`h-full flex flex-col transition-all duration-300 bg-eva-panel overflow-hidden relative border ${featured ? 'border-eva-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]' : 'border-[rgba(0,212,255,0.1)]'} hover:border-eva-cyan group-hover:shadow-[0_10px_30px_rgba(0,212,255,0.2)]`}
       >
         <div className='w-full relative aspect-video overflow-hidden border-b border-eva-border'>
           <img 
@@ -61,17 +81,17 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, likes = [
           
           {/* Tags Overlay */}
           <div className="absolute top-3 left-3 flex gap-2 z-10">
-            <div className="bg-eva-black/80 border border-eva-cyan px-2 py-0.5 text-[9px] text-eva-cyan font-mono uppercase tracking-widest terminal-glow">
+            <div className="bg-eva-black/80 border border-eva-cyan px-2 py-0.5 text-[9px] text-eva-cyan font-mono uppercase tracking-widest terminal-glow flex items-center gap-1">
+              <Tag size={8} />
               INTEL_LOG
             </div>
-            <div className="bg-eva-black/80 border border-eva-purple px-2 py-0.5 text-[9px] text-eva-purple font-mono uppercase tracking-widest purple-glow">
-              3_MIN_SCAN
+            <div className="bg-eva-black/80 border border-eva-purple px-2 py-0.5 text-[9px] text-eva-purple font-mono uppercase tracking-widest purple-glow flex items-center gap-1">
+              <Clock size={8} />
+              {getReadTime()} read
             </div>
           </div>
 
-          <div className="absolute top-3 right-3 border border-eva-cyan/40 px-1.5 py-0.5 bg-eva-black/60 text-eva-cyan text-[8px] font-mono tracking-widest z-10">
-            RT: {views}
-          </div>
+
 
           <div className='absolute inset-0 bg-gradient-to-t from-eva-black via-transparent to-transparent pointer-events-none'></div>
 
@@ -85,20 +105,35 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, likes = [
         {/* Bottom metadata bar */}
         <div className="bg-black/40 px-4 py-3 flex items-center justify-between text-[10px] uppercase tracking-wider mt-auto font-mono text-eva-cyan/70">
             <div className="flex flex-col gap-0.5 leading-none">
-              <span className="text-eva-cyan">UNIT_{authorName?.substring(0,8).toUpperCase() || 'UNKNOWN'}</span>
+              <span className="text-eva-cyan">@{authorName?.toLowerCase() || 'unknown'}</span>
               <span className="opacity-50 text-[9px]">{formattedDate}</span>
             </div>
             
-            <div className="flex gap-4">
-              <button onClick={handleLike} className={`hover:text-eva-cyan transition-colors ${isLiked ? 'text-eva-cyan accent-glow' : ''}`}>
-                [{isLiked ? '●' : '○'} {localLikes.length}]
-              </button>
-              <button onClick={handleBookmark} className={`hover:text-eva-purple transition-colors ${bookmarked ? 'text-eva-purple purple-glow' : ''}`}>
-                [◈]
-              </button>
+            <div className="flex gap-2">
+              <div className="flex items-center gap-[4px] bg-[rgba(255,255,255,0.06)] rounded-[4px] px-2 py-1 text-[#00d4ff]">
+                <Eye size={18} color="#00d4ff" />
+                <span className="text-[12px]">{views}</span>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleLike}
+                className={`flex items-center gap-[4px] bg-[rgba(255,255,255,0.06)] rounded-[4px] px-2 py-1 transition-colors ${isLiked ? 'text-[#ff4466]' : 'text-eva-muted hover:text-[#ff4466]'}`}
+              >
+                <Heart size={18} variant={isLiked ? 'Bold' : 'Linear'} color="#ff4466" />
+                <span className="text-[12px] text-[#ff4466]">{localLikes.length}</span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleBookmark}
+                className={`hover:text-eva-purple transition-colors ml-1 flex items-center ${bookmarked ? 'text-eva-purple purple-glow' : ''}`}
+              >
+                <Bookmark size={18} variant={bookmarked ? 'Bold' : 'Linear'} />
+              </motion.button>
             </div>
         </div>
-      </div>
+      </motion.div>
     </Link>
   );
 }

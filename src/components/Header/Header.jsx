@@ -1,9 +1,11 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ProfileDropdown } from '../index'
+import { motion } from 'framer-motion';
+import { SearchNormal as Search } from 'iconsax-react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ProfileDropdown } from '../index';
 
-function Header() {
+function Header({ onSearchOpen }) {
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
   const location = useLocation()
@@ -47,8 +49,10 @@ function Header() {
         <ul className='flex ml-auto items-center gap-2 md:gap-4'>
           {navItems.map((item) => 
             item.active ? (
-              <li key={item.name}>
-                <button
+              <li key={item.name} className="hidden md:block">
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => navigate(item.slug)}
                   className='relative text-sm tracking-widest font-heading uppercase px-3 py-1 transition-all duration-200'
                   style={{
@@ -58,10 +62,25 @@ function Header() {
                 >
                   <span className='opacity-50 mr-1'>&gt;</span>
                   {item.name}
-                </button>
+                </motion.button>
               </li>
             ) : null
           )}
+
+          {/* Search Button */}
+          <li>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={onSearchOpen}
+              className="flex items-center justify-center w-9 h-9 border border-eva-border text-eva-muted hover:text-eva-cyan hover:border-eva-cyan transition-all"
+              aria-label="Search"
+              title="Search (Press /)"
+            >
+              <Search size={16} />
+            </motion.button>
+          </li>
+
           {authStatus && (
             <li>
               <ProfileDropdown />
@@ -71,7 +90,7 @@ function Header() {
 
         {/* Mobile Hamburger */}
         <button 
-          className='md:hidden flex flex-col gap-1.25 p-2'
+          className='md:hidden flex flex-col gap-1.25 p-2 ml-2'
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           <span className='block w-6 h-0.5 bg-eva-orange'></span>

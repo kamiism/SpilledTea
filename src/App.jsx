@@ -1,13 +1,17 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import './App.css';
 import authService from './appwrite/auth';
 import { Footer, Header } from './components';
+import ScanlineSweep from './components/ScanlineSweep';
+import SearchModal from './components/SearchModal';
 import { login, logout } from "./store/authSlice";
 
 function App() {
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
+  const [searchOpen, setSearchOpen] = useState(false)
   const dispatch = useDispatch()
   const location = useLocation()
 
@@ -23,6 +27,23 @@ function App() {
     .finally(() => setLoading(false))
   },[])
 
+  // Global keyboard shortcut for search
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        const tag = document.activeElement?.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+      if (e.key === 'Escape' && searchOpen) {
+        setSearchOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchOpen]);
+
   return loading ? (
     <div className='min-h-screen bg-eva-black flex flex-col items-center justify-center gap-4'>
       <div className='text-eva-orange font-bold tracking-widest uppercase' style={{ fontFamily: 'var(--font-heading)'}}>SYSTEM INITIALIZING</div>
@@ -32,9 +53,21 @@ function App() {
     </div>
   ) : (
     <div className='app-shell relative'>
-      <Header />
+      <ScanlineSweep />
+      <Header onSearchOpen={() => setSearchOpen(true)} />
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
       <main className="transition-all duration-300">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

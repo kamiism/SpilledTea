@@ -162,18 +162,23 @@ export class Service{
         }
     }
 
-    async addComment({ postId, userId, authorName, content }) {
+    async addComment({ postId, userId, authorName, content, parentId }) {
         try {
+            const data = {
+                postId,
+                userId,
+                authorName,
+                content
+            };
+            // Only include parentId if provided (for nested replies)
+            if (parentId) {
+                data.parentId = parentId;
+            }
             return await this.tablesDB.createRow(
                 conf.appwriteDatabaseId,
                 conf.appwriteCommentsId,
                 ID.unique(),
-                {
-                    postId,
-                    userId,
-                    authorName,
-                    content
-                },
+                data,
                 [
                     Permission.read(Role.any()),
                     Permission.update(Role.user(userId)),

@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-eva-black: #0a0e1a;
+  --color-eva-black: #080d14;
   --color-eva-navy: #0e1425;
-  --color-eva-panel: #141b2d;
+  --color-eva-panel: #0f1923;
   --color-eva-border: #1e293b;
   --color-eva-cyan: #00d4ff;
   --color-eva-cyan-dim: #008eb0;
@@ -221,4 +221,132 @@ a {
   border: none;
   border-top: 1px dashed var(--color-eva-border);
   margin: 3em 0;
+}
+
+/* ── Skeleton Shimmer ── */
+@keyframes skeleton-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-eva-navy) 0%,
+    rgba(0, 212, 255, 0.08) 40%,
+    rgba(0, 212, 255, 0.12) 50%,
+    rgba(0, 212, 255, 0.08) 60%,
+    var(--color-eva-navy) 100%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.8s infinite linear;
+  border-radius: 0;
+}
+
+/* ── Search Result Hover ── */
+.search-result-item:hover {
+  background: rgba(0, 212, 255, 0.05) !important;
+}
+.search-result-item:hover div:first-of-type {
+  color: var(--color-eva-cyan) !important;
+}
+
+/* ── Stats Bar ── */
+.stats-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── Slide Up Animation ── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.5s ease forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease forwards;
+}
+
+/* ══════════════════════════════════════════════
+   ALL POSTS — Responsive Layout
+   ══════════════════════════════════════════════ */
+
+/* Sidebar hidden on mobile */
+.allposts-sidebar {
+  display: none;
+}
+
+/* Card grid: 1col mobile */
+.allposts-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) {
+  .allposts-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Desktop: 70/30 layout with sidebar, 3-col grid */
+@media (min-width: 1024px) {
+  .allposts-layout {
+    grid-template-columns: 1fr 300px !important;
+  }
+  .allposts-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .allposts-sidebar {
+    display: block;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   POST PAGE — TOC Sidebar Layout
+   ══════════════════════════════════════════════ */
+
+.post-content-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.post-toc-sidebar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .post-content-layout {
+    grid-template-columns: 1fr 240px;
+  }
+  .post-toc-sidebar {
+    display: block;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   LATEST TRANSMISSION — Featured Card
+   ══════════════════════════════════════════════ */
+
+.featured-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .featured-card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }

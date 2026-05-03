@@ -101,7 +101,7 @@ export default function PostForm({ post }) {
                 <div className="flex flex-col">
                     <input
                         type="text"
-                        placeholder="TRANSMISSION_TITLE:"
+                        placeholder="Post Title"
                         className="w-full bg-transparent border-none border-b border-[var(--color-eva-orange)] pb-2 text-2xl md:text-3xl text-[var(--color-eva-white)] font-heading outline-none placeholder:text-[rgba(232,232,232,0.3)] transition-all focus:shadow-[0_4px_12px_rgba(255,102,0,0.15)] rounded-none"
                         {...register("title", { required: true })}
                     />
@@ -121,7 +121,7 @@ export default function PostForm({ post }) {
 
                 {/* File Upload (Tactical styling) */}
                 <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[var(--color-eva-green)] text-xs uppercase tracking-widest">ATTACH_VISUAL_DATA:</label>
+                    <label className="font-mono text-[var(--color-eva-green)] text-xs uppercase tracking-widest">Cover Image:</label>
                     <div className="border border-dashed border-[var(--color-eva-border)] bg-[rgba(10,10,15,0.5)] p-4 hover:border-[var(--color-eva-green)] transition-colors cursor-pointer relative overflow-hidden group">
                         <input
                             type="file"
@@ -156,7 +156,7 @@ export default function PostForm({ post }) {
                 {/* RTE Content */}
                 <div className="flex flex-col relative border border-[var(--color-eva-border)]">
                     <div className="bg-[var(--color-eva-black)] px-4 py-2 border-b border-[var(--color-eva-border)] flex items-center justify-between font-mono text-xs uppercase tracking-widest">
-                        <span className="text-[var(--color-eva-green)]">PAYLOAD_CONTENT</span>
+                        <span className="text-[var(--color-eva-green)]">Content</span>
                         <div className="flex gap-4 text-[var(--color-eva-muted)]">
                             <span>WORD_COUNT: <span className="text-[var(--color-eva-green)]">{wordCount}</span></span>
                             <span>EST. READ: <span className="text-[var(--color-eva-orange)]">{readTime} MIN</span></span>
