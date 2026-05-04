@@ -7,9 +7,11 @@ import appwriteService from "../appwrite/config";
 import { Container, PostCard } from '../components';
 import AnimatedCounter from '../components/AnimatedCounter';
 import AnimatedHero from '../components/AnimatedHero';
+import LightLines from '../components/LightLines';
 import SkeletonCard from '../components/SkeletonCard';
 
 /* ── Hero Background (unchanged from original) ── */
+/* HeroBackground Component START */
 function HeroBackground() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
@@ -26,8 +28,10 @@ function HeroBackground() {
     </div>
   );
 }
+/* HeroBackground Component END */
 
 /* ── Letter-by-letter reveal using motion.span ── */
+/* LetterReveal Component START */
 function LetterReveal({ text, className, delay = 0 }) {
   return (
     <span className={className}>
@@ -45,8 +49,10 @@ function LetterReveal({ text, className, delay = 0 }) {
     </span>
   );
 }
+/* LetterReveal Component END */
 
 /* ── Typewriter for subtitle ── */
+/* TypewriterText Component START */
 function TypewriterText({ text, delay = 40, className }) {
   const [displayed, setDisplayed] = useState('');
   useEffect(() => {
@@ -64,8 +70,10 @@ function TypewriterText({ text, delay = 40, className }) {
   }, [text, delay]);
   return <span className={className}>{displayed}<span className="nav-cursor">▮</span></span>;
 }
+/* TypewriterText Component END */
 
 /* ── Stats Ticker ── */
+/* StatsTicker Component START */
 function StatsTicker({ totalPosts, totalAuthors }) {
   return (
     <div style={{
@@ -104,8 +112,10 @@ function StatsTicker({ totalPosts, totalAuthors }) {
     </div>
   );
 }
+/* StatsTicker Component END */
 
 /* ── Featured Latest Transmission Card ── */
+/* LatestTransmission Component START */
 function LatestTransmission({ post }) {
   if (!post) return null;
 
@@ -256,8 +266,10 @@ function LatestTransmission({ post }) {
     </motion.div>
   );
 }
+/* LatestTransmission Component END */
 
 /* ── Stats Bar ── */
+/* StatsBar Component START */
 function StatsBar({ totalPosts, totalReaders, newestAuthor }) {
   return (
     <motion.div
@@ -301,8 +313,10 @@ function StatsBar({ totalPosts, totalReaders, newestAuthor }) {
     </motion.div>
   );
 }
+/* StatsBar Component END */
 
 /* ── Hot Transmissions (unchanged from original) ── */
+/* HotTransmissions Component START */
 function HotTransmissions({ posts }) {
     return (
         <div className="w-full mb-16 overflow-hidden">
@@ -326,8 +340,10 @@ function HotTransmissions({ posts }) {
         </div>
     );
 }
+/* HotTransmissions Component END */
 
 /* ── Main Home Component ── */
+/* Home Page Component START */
 function Home() {
     const [posts, setPosts] = useState([])
     const [allPosts, setAllPosts] = useState([])
@@ -475,8 +491,17 @@ function Home() {
     return (
         <div className='w-full'>
             {/* Compact 2-Column Hero */}
-            <div className="relative w-full pt-12 pb-10 md:pt-12 md:pb-10 bg-eva-navy border-b border-eva-cyan/20 overflow-hidden mb-0">
-                <HeroBackground />
+            {/* LightLines Auth Hero Section START */}
+            <div className="relative w-full pt-12 pb-10 md:pt-12 md:pb-10 border-b border-eva-cyan/20 overflow-hidden mb-0" style={{ minHeight: '280px' }}>
+                <LightLines
+                gradientFrom="#0c1018"
+                gradientTo="#080d14"
+                lightColor="#ff6600"
+                lineColor="#cc4400"
+                linesOpacity={0.15}
+                lightsOpacity={0.85}
+                speedMultiplier={0.7}
+                />
                 <Container>
                     <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-2">
                         {/* Left: Title + Typewriter */}
@@ -503,6 +528,7 @@ function Home() {
                     </div>
                 </Container>
             </div>
+            {/* LightLines Auth Hero Section END */}
 
             <Container>
                 {/* Stats Bar */}
@@ -576,5 +602,6 @@ function Home() {
         </div>
     )
 }
+/* Home Page Component END */
 
 export default Home

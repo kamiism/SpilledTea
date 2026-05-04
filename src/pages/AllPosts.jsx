@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import appwriteService from '../appwrite/config';
 import { Container, PostCard } from '../components';
+import LightLines from '../components/LightLines';
 import NewsletterWidget from '../components/NewsletterWidget';
 import SkeletonCard from '../components/SkeletonCard';
 
@@ -23,6 +24,7 @@ const cardVariants = {
 };
 
 /* ── Trending Sidebar ── */
+/* TrendingSidebar Component START */
 function TrendingSidebar({ posts }) {
   const sorted = [...posts].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 5);
 
@@ -126,7 +128,9 @@ function TrendingSidebar({ posts }) {
     </div>
   );
 }
+/* TrendingSidebar Component END */
 
+/* AllPosts Page Component START */
 function AllPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
@@ -173,6 +177,44 @@ function AllPosts() {
 
   return (
     <div className='w-full pt-12 pb-10 min-h-[80vh]'>
+      {/* LightLines AllPosts Header START */}
+      <div className="relative w-full mb-10 overflow-hidden" style={{ height: '160px' }}>
+    <LightLines
+        gradientFrom="#0c1018"
+        gradientTo="#080d14"
+        lightColor="#6ba3b8"
+        lineColor="#4e8ca0"
+        linesOpacity={0.15}
+        lightsOpacity={0.85}
+        speedMultiplier={1}
+    />
+    {/* AllPosts Header Content Overlay START */}
+    <div className="absolute inset-0 flex items-center z-10 px-6" style={{ paddingLeft: '48px' }}>
+        <div>
+            <div style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '10px',
+                letterSpacing: '0.3em',
+                color: 'var(--color-eva-green)',
+                marginBottom: '6px',
+                opacity: 0.7,
+            }}>
+                &gt; CLASSIFIED_ARCHIVE // ALL_TRANSMISSIONS
+            </div>
+            <h1 style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: '28px',
+                color: 'var(--color-eva-white)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+            }}>
+                ALL POSTS
+            </h1>
+        </div>
+    </div>
+    {/* AllPosts Header Content Overlay END */}
+</div>
+      {/* LightLines AllPosts Header END */}
       <Container>
         {/* Filter & Search Rail */}
         <div style={{ marginBottom: '40px', borderBottom: '1px solid var(--color-eva-border)', paddingBottom: '24px' }}>
@@ -315,5 +357,6 @@ function AllPosts() {
     </div>
   )
 }
+/* AllPosts Page Component END */
 
 export default AllPosts
