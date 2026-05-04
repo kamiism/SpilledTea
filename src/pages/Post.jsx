@@ -64,11 +64,17 @@ export default function Post() {
     };
 
     useEffect(() => {
+        let ticking = false;
         const handleScroll = () => {
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            setScrollProgress(scrolled);
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const winScroll = document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    setScrollProgress((winScroll / height) * 100);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
         const handleKeyDown = (e) => {

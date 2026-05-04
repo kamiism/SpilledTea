@@ -505,7 +505,7 @@ function Home() {
                     </div>
                 ) : (
                     <motion.div
-                        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+                        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.05, delayChildren: 0 } } }}
                         initial="hidden"
                         animate="visible"
                         style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px', marginBottom: '80px' }}

@@ -66,9 +66,10 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
   return (
     <Link to={`/post/${$id}`} className='block group h-full relative'>
       <motion.div
-        whileHover={{ y: -6 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         className={`h-full flex flex-col transition-all duration-300 bg-eva-panel overflow-hidden relative border ${featured ? 'border-eva-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]' : 'border-[rgba(0,212,255,0.1)]'} hover:border-eva-cyan group-hover:shadow-[0_10px_30px_rgba(0,212,255,0.2)]`}
+        style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}
+        onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
+        onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
       >
         <div className='w-full relative aspect-video overflow-hidden border-b border-eva-border'>
           <img 

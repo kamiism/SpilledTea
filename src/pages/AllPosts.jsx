@@ -13,7 +13,7 @@ const MAGI_FILTERS = ['ALL', 'ANIME', 'MUSIC', 'TECH', 'ART', 'CULTURE', 'OPINIO
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08 }
+    transition: { staggerChildren: 0.05, delayChildren: 0 }
   }
 };
 
