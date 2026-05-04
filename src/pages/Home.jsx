@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from '../components';
 import AnimatedCounter from '../components/AnimatedCounter';
+import AnimatedHero from '../components/AnimatedHero';
 import SkeletonCard from '../components/SkeletonCard';
 
 /* ── Hero Background (unchanged from original) ── */
@@ -379,46 +380,96 @@ function Home() {
 
     /* ──── UNAUTHENTICATED VIEW ──── */
     if (!authStatus) {
-        return (
-            <div className="w-full flex-1 flex flex-col bg-eva-black py-0 relative overflow-hidden">
-                {/* Compact Hero Section */}
-                <div className="relative w-full pt-12 pb-10 md:pt-12 md:pb-10 border-b border-eva-cyan/20">
-                    <HeroBackground />
-                    <Container>
-                        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-                            <div className="text-eva-cyan font-mono text-xs md:text-sm mb-6 uppercase tracking-[0.5em] terminal-glow">
-                                &gt; NERV // CLASSIFIED_ARCHIVE_SYSTEM
-                            </div>
-                            <h1 className="text-5xl md:text-8xl mb-4 text-eva-white accent-glow font-heading leading-tight">
-                                <LetterReveal text="SPILLEDTEA" />
-                            </h1>
-                            <p className="text-lg md:text-xl mb-10 max-w-3xl mx-auto text-eva-muted font-body leading-relaxed">
-                                <TypewriterText
-                                  text="Secure communication protocol for NERV personnel."
-                                  delay={30}
-                                />
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                                  <Link to="/login" className="btn-nerv text-lg px-12 py-5 shadow-[0_0_20px_rgba(0,212,255,0.3)]">
-                                    JACK_IN_PROTOCOL →
-                                  </Link>
-                                </motion.div>
-                                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-                                  <Link to="/signup" className="btn-nerv text-lg px-12 py-5 border-eva-purple text-eva-purple hover:bg-eva-purple hover:text-eva-white hover:shadow-[0_0_20px_rgba(123,47,255,0.4)]">
-                                    REGISTER_UNIT
-                                  </Link>
-                                </motion.div>
-                            </div>
-                        </div>
-                    </Container>
-                </div>
-
-                {/* Hot Transmissions Section */}
-                {allPosts.length > 0 && <HotTransmissions posts={allPosts.slice(0, 5)} />}
+    return (
+        <div className="w-full flex-1 flex flex-col bg-eva-black relative">
+            
+            {/* Full page aurora background — fixed so it covers everything */}
+            <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+                <AnimatedHero title="" className="w-full h-full absolute inset-0" />
+                {/* Dark overlay so content is readable */}
+                <div className="absolute inset-0" style={{ background: 'rgba(8, 13, 20, 0.55)' }} />
             </div>
-        )
-    }
+
+            {/* Hero Content */}
+            <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
+                
+                {/* SPILLEDTEA title */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                    style={{
+                        fontFamily: 'var(--font-heading)',
+                        fontSize: 'clamp(3.5rem, 2rem + 8vw, 9rem)',
+                        fontWeight: 900,
+                        letterSpacing: '0.05em',
+                        lineHeight: 1,
+                        marginBottom: '24px',
+                        background: 'linear-gradient(135deg, #ff6600 0%, #cc4400 30%, #7b2fff 70%, #4e8ca0 100%)',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        filter: 'drop-shadow(0 0 30px rgba(255,100,0,0.3))',
+                    }}
+                >
+                    SPILLEDTEA
+                </motion.h1>
+
+                {/* Tag line */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="font-mono text-xs mb-4 uppercase tracking-[0.5em]"
+                    style={{ color: 'var(--color-eva-cyan)' }}
+                >
+                    &gt; NERV // CLASSIFIED_ARCHIVE_SYSTEM
+                </motion.div>
+
+                {/* Subtitle */}
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className="text-base mb-10 max-w-lg font-body"
+                    style={{ color: 'var(--color-eva-muted)' }}
+                >
+                    <TypewriterText
+                        text="Secure communication protocol for NERV personnel."
+                        delay={30}
+                    />
+                </motion.p>
+
+                {/* Buttons */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 }}
+                    className="flex flex-col sm:flex-row gap-4 justify-center"
+                >
+                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <Link to="/login" className="btn-nerv text-base px-10 py-4">
+                            JACK_IN_PROTOCOL →
+                        </Link>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                        <Link to="/signup" className="btn-nerv text-base px-10 py-4 border-eva-purple text-eva-purple hover:bg-eva-purple hover:text-eva-white">
+                            REGISTER_UNIT
+                        </Link>
+                    </motion.div>
+                </motion.div>
+            </div>
+
+            {/* Hot Transmissions — below hero, still on top of aurora */}
+            {allPosts.length > 0 && (
+                <div className="relative z-10">
+                    <HotTransmissions posts={allPosts.slice(0, 5)} />
+                </div>
+            )}
+
+        </div>
+    )
+}
 
     /* ──── AUTHENTICATED VIEW ──── */
     return (
