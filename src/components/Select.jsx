@@ -16,7 +16,6 @@ function Select({
             id={id}
             ref={ref}
             className={`w-full bg-[rgba(0,255,65,0.02)] border border-[var(--color-eva-border)] text-[var(--color-eva-white)] font-mono text-sm px-4 py-3 outline-none appearance-none hover:border-[var(--color-eva-orange)] transition-colors rounded-none ${className}`}
-            style={{ cursor: 'none' }}
           >
               {options?.map((option) => (
                   <option key={option} value={option} className="bg-[var(--color-eva-panel)] text-[var(--color-eva-white)] uppercase tracking-widest">
