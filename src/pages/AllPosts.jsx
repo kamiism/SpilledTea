@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import appwriteService from '../appwrite/config';
 import { Container, PostCard } from '../components';
 import LightLines from '../components/LightLines';
-import NewsletterWidget from '../components/NewsletterWidget';
 import SkeletonCard from '../components/SkeletonCard';
 
 const MAGI_FILTERS = ['ALL', 'ANIME', 'MUSIC', 'TECH', 'ART', 'CULTURE', 'OPINION'];
@@ -351,8 +350,6 @@ function AllPosts() {
           </div>
         )}
 
-        {/* Newsletter Widget */}
-        <NewsletterWidget />
       </Container>
     </div>
   )

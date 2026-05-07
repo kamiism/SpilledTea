@@ -2,10 +2,11 @@ import { motion } from 'framer-motion';
 import { Bookmark, Clock, Eye, Heart, Tag } from 'iconsax-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import appwriteService from "../appwrite/config";
 
 function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, likes = [], views = 0, featured = false, category }) {
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const [localLikes, setLocalLikes] = useState(likes);
   const [isLiked, setIsLiked] = useState(false);
@@ -64,7 +65,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
   };
 
   return (
-    <Link to={`/post/${$id}`} className='block group h-full relative'>
+    <div onClick={() => navigate(`/post/${$id}`)} className='block group h-full relative cursor-pointer'>
       <motion.div
         className={`h-full flex flex-col transition-all duration-300 bg-eva-panel overflow-hidden relative border ${featured ? 'border-eva-purple shadow-[0_0_15px_rgba(123,47,255,0.2)]' : 'border-[rgba(0,212,255,0.1)]'} hover:border-eva-cyan group-hover:shadow-[0_10px_30px_rgba(0,212,255,0.2)]`}
         style={{ transition: 'transform 0.2s ease, box-shadow 0.2s ease' }}
@@ -83,12 +84,12 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
           {/* Tags Overlay */}
           <div className="absolute top-3 left-3 flex gap-2 z-10">
             {category && (
-              <div className="px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest flex items-center gap-1" style={{ backgroundColor: 'rgba(78, 140, 160, 0.2)', color: '#8ab4c4', border: '1px solid rgba(78, 140, 160, 0.3)' }}>
+              <div className="backdrop-blur-md bg-eva-black/80 border border-eva-cyan px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest flex items-center gap-1 text-eva-cyan">
                 <Tag size={8} color="currentColor" />
                 {category}
               </div>
             )}
-            <div className="bg-eva-black/80 border border-eva-purple px-2 py-0.5 text-[9px] text-eva-purple font-mono uppercase tracking-widest purple-glow flex items-center gap-1">
+            <div className="backdrop-blur-md bg-eva-black/80 border border-eva-purple px-2 py-0.5 text-[9px] text-eva-purple font-mono uppercase tracking-widest purple-glow flex items-center gap-1">
               <Clock size={8} color="currentColor" />
               {getReadTime()} read
             </div>
@@ -146,7 +147,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, authorName, content, 
             </div>
         </div>
       </motion.div>
-    </Link>
+    </div>
   );
 }
 
