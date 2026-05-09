@@ -510,11 +510,11 @@ function Home() {
                                 &gt; SYSTEM_ONLINE // USER_RECOGNIZED
                             </div>
                             <h1 className="text-2xl md:text-4xl text-eva-white mb-2 accent-glow" style={{ fontFamily: 'var(--font-heading)' }}>
-                                YOUR ARCHIVE
+                                YOUR SPILLS
                             </h1>
                             <p className="text-eva-muted text-xs md:text-sm" style={{ fontFamily: 'var(--font-body)' }}>
                                 <TypewriterText
-                                  text="Classified log of your transmissions to the MAGI system."
+                                  text="Classified log of your spills to the MAGI system."
                                   delay={25}
                                 />
                             </p>

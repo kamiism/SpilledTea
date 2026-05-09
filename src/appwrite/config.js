@@ -107,8 +107,8 @@ export class Service{
             );
             
             if (post) {
-                // Prevent multiple view increments in the same session
-                const viewedPosts = JSON.parse(sessionStorage.getItem('viewedPosts') || '[]');
+                // Prevent multiple view increments across sessions
+                const viewedPosts = JSON.parse(localStorage.getItem('viewedPosts') || '[]');
                 
                 if (!viewedPosts.includes(slug)) {
                     post.views = (post.views || 0) + 1; // Optimistically update the UI
@@ -121,7 +121,7 @@ export class Service{
                         { views: post.views }
                     ).then(() => {
                         viewedPosts.push(slug);
-                        sessionStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
+                        localStorage.setItem('viewedPosts', JSON.stringify(viewedPosts));
                     }).catch(e => console.error("Failed to increment views:", e));
                 }
             }
